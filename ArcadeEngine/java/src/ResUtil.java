@@ -6,12 +6,14 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+import src.gui.Gui;
+
 /**
  * This class provides utility methods for loading resources
  * 
  * @author D.Baker
  */
-public abstract class ResourceUtility
+public abstract class ResUtil
 {
 	/**
 	 * Safely attempts to get the requested image.
@@ -24,36 +26,24 @@ public abstract class ResourceUtility
 	{
 		try
 		{
-			return new ImageIcon(ob.getResource("resources/" + filename)).getImage();
+			return new ImageIcon(ob.getResource("res/" + filename)).getImage();
 		}
 		catch(NullPointerException e)
 		{
 			if(filename.equalsIgnoreCase("null.png"))
 			{
-				System.out.println("resources/null.png Doesn't Exist!");
+				System.out.println("res/null.png Doesn't Exist!");
 				return null;
 				
 			}
 			else
 			{
-				System.out.println("resources/" + filename + " Doesn't Exist!");
-				return loadImage("null.png", ResourceUtility.class);
+				System.out.println("res/" + filename + " Doesn't Exist!");
+				return loadImage("null.png", Gui.class);
 			}
 		}
 	}
 	
-	public static Image loadImage(String filename, String loc)
-	{
-		try
-		{
-			return new ImageIcon(loc + filename).getImage();
-		}
-		catch(NullPointerException e)
-		{
-			System.out.println(loc + filename + " Doesn't Exist!");
-			return loadImage("null.png", ResourceUtility.class);
-		}
-	}
 	
 	/**
 	 * Safely attempts to get the requested sound file.
@@ -66,11 +56,11 @@ public abstract class ResourceUtility
 	{
 		try
 		{
-			return Applet.newAudioClip(ob.getResource("resources/" + filename));
+			return Applet.newAudioClip(ob.getResource("res/" + filename));
 		}
 		catch(NullPointerException e)
 		{
-			System.out.println("resources/" + filename + " Doesn't Exist!");
+			System.out.println("res/" + filename + " Doesn't Exist!");
 			return null;
 		}
 	}

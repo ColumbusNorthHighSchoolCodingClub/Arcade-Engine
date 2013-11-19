@@ -8,8 +8,6 @@ import src.AnimPanel;
 @SuppressWarnings("serial")
 public abstract class GamePanel extends AnimPanel {
 
-	protected static GamePanel instance;
-	
 	protected ArrayList<Entity> entities;
 	
 	/**

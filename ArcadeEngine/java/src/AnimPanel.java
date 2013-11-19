@@ -24,8 +24,6 @@ import src.gui.GuiHandler;
 @SuppressWarnings("serial")
 public abstract class AnimPanel extends JPanel implements KeyListener, MouseListener, MouseMotionListener, GameInterface
 {
-	protected static AnimPanel instance;
-	
 	// Variables
 	private String myName;
 	
@@ -155,7 +153,7 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 			Integer.valueOf(super.getMousePosition().x + 1);
 			Integer.valueOf(super.getMousePosition().y + 1);
 			
-			if(!(Double.isNaN(super.getMousePosition().x) && Double.isNaN(super.getMousePosition().y)))
+			if(!(Double.isNaN(super.getMousePosition().x) || Double.isNaN(super.getMousePosition().y)))
 			{	
 				lastMouseCoord = super.getMousePosition();
 				return super.getMousePosition();

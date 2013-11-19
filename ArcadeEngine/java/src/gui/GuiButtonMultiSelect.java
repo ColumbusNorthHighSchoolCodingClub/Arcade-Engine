@@ -11,8 +11,10 @@ import src.AnimPanel;
 
 public class GuiButtonMultiSelect extends GuiButton
 {
+	private Enum<?>[] values;
+	
 	/** The state of the button. */
-	public Enum<?> state;
+	private Enum<?> state;
 	
 	/**
 	 * Creates a togglable Button.
@@ -24,11 +26,12 @@ public class GuiButtonMultiSelect extends GuiButton
 	 * @param label The Label of the button to be used for actions. if there is not titles for it.
 	 * @param state The starting state of the button.
 	 */
-	public GuiButtonMultiSelect(AnimPanel panel, int x, int y, int w, int h, String label, Enum<?> state)
+	public GuiButtonMultiSelect(AnimPanel panel, int x, int y, int w, int h, String label, Enum<?> state, Enum<?>[] values)
 	{
 		super(panel, x, y, w, h, label);
 		
 		this.state = state;
+		this.values = values;
 	}
 	
 	/**
@@ -39,11 +42,12 @@ public class GuiButtonMultiSelect extends GuiButton
 	 * @param label The Label of the button to be used for actions. if there is not titles for it.
 	 * @param state The starting state of the button.
 	 */
-	public GuiButtonMultiSelect(AnimPanel panel, int w, int h, String label, Enum<?> state)
+	public GuiButtonMultiSelect(AnimPanel panel, int w, int h, String label, Enum<?> state, Enum<?>[] values)
 	{
 		super(panel, w, h, label);
 		
 		this.state = state;
+		this.values = values;
 	}
 	
 	/**
@@ -145,21 +149,15 @@ public class GuiButtonMultiSelect extends GuiButton
 		g.setFont(old);
 	}
 	
-	public void setState(Enum<?> state)
-	{
-		this.state = state;
-	}
-	
-	public Enum<?> moveOn(Enum<?> state, Enum<?>[] gameModes)
+	public void moveOn()
 	{
 		// Compare the button's Enum's ordinal to the indexes of the enum.
 		// If it is the last Enum, set it to the first one, or else proceed to the next Enum.
-		if(state.ordinal() >= gameModes.length - 1) state = gameModes[0];
-		else state = gameModes[state.ordinal() + 1];
-		
-		// Set the new state for the button.
-		this.state = state;
-		
+		if(state.ordinal() >= values.length - 1) state = values[0];
+		else state = values[state.ordinal() + 1];
+	}
+
+	public Enum<?> getState() {
 		return state;
 	}
 }

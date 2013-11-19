@@ -102,7 +102,7 @@ public class GuiHandler
 	{
 		try
 		{
-			return this.currentGui.parent;
+			return this.currentGui.getParent();
 		}
 		catch(NullPointerException e)
 		{
@@ -179,7 +179,8 @@ public class GuiHandler
 	{
 		System.out.println("*** Switching Guis From " + currentGui.getClass().getSimpleName() + " To " + next.getClass().getSimpleName() + " ***");
 		
-		next.parent = currentGui;
+		next.setParent(currentGui);
+		
 		this.currentGui = new GuiTransition(panel, currentGui, next);
 	}
 	
@@ -190,8 +191,8 @@ public class GuiHandler
 	 */
 	public void previousGui()
 	{
-		System.out.println("*** Returning to Gui: " + currentGui.parent.getClass().getSimpleName() + " ***");
+		System.out.println("*** Returning to Gui: " + currentGui.getParent().getClass().getSimpleName() + " ***");
 		
-		this.currentGui = new GuiTransition(panel, currentGui, currentGui.parent);
+		this.currentGui = new GuiTransition(panel, currentGui, currentGui.getParent());
 	}
 }

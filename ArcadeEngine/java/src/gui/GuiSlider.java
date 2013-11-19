@@ -10,11 +10,11 @@ import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 import src.AnimPanel;
-import src.ResourceUtility;
+import src.ResUtil;
 
 public class GuiSlider extends GuiComponent
 {
-	private Image handleImage = ResourceUtility.loadImage("sliderHandle.png", this.getClass());
+	private Image handleImage = ResUtil.loadImage("sliderHandle.png", this.getClass());
 	private Rectangle handle = new Rectangle(handleImage.getWidth(null), handleImage.getHeight(null));
 	
 	private Rectangle boxOutline;

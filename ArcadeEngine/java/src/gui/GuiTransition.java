@@ -17,7 +17,8 @@ public class GuiTransition extends Gui
 	{
 		super(panel);
 		
-		this.myColor = next.getBGColor();
+		this.setBGColor(next.getBGColor());
+		this.setBGImage(next.getBGImage());
 		
 		this.current = current;
 		this.next = next;
@@ -25,8 +26,8 @@ public class GuiTransition extends Gui
 	
 	public void updateGui()
 	{
-		if(current.parent == (null)) this.forward = true;
-		else if(!current.parent.equals(next)) this.forward = true;
+		if(current.getParent() == (null)) this.forward = true;
+		else if(!current.getParent().equals(next)) this.forward = true;
 		else this.forward = false;
 		
 		if(forward) currX -= transspeed * (panel.getWidth() / 500);
@@ -38,8 +39,8 @@ public class GuiTransition extends Gui
 	
 	public void drawGui(Graphics g)
 	{
-		if(current.parent == (null)) drawNext(g);
-		else if(!current.parent.equals(next)) drawNext(g);
+		if(current.getParent() == (null)) drawNext(g);
+		else if(!current.getParent().equals(next)) drawNext(g);
 		else drawPrev(g);
 	}
 	

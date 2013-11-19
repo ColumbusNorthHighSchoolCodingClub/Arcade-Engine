@@ -10,7 +10,6 @@ import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 
 import src.AnimPanel;
-import src.ResourceUtility;
 
 
 public abstract class Gui implements GuiInterface
@@ -19,43 +18,47 @@ public abstract class Gui implements GuiInterface
 
 	protected AnimPanel panel;
 	
-	protected Color myColor = new Color(68, 68, 68, 160);
+	private Color bgColor = new Color(68, 68, 68, 160);
 	
 	protected GuiComponent components[] = {};
 	
 	/** The title for each GUI screen **/
-	protected String title = "Arcade Engine";
+	private String title = "Arcade Engine";
 	
 	/** Color of the title */
-	protected Color titleColor = Color.BLUE;
+	private Color titleColor = Color.BLUE;
 	
 	/** Y Coordinate of the title */
 	private int titleY = 150;
 	
 	/** The image in the background of the game. **/
-	protected Image background = ResourceUtility.loadImage("bg.png", Gui.class);
+	private Image background;
 	
 	/** The last Gui Visited **/
-	public Gui parent = null;
+	private Gui parent = null;
+	
 	
 	public Gui(AnimPanel panel) {
 		
 		this.panel = panel;
 	}
 	
+	
 	/**
 	 * Returns the current background image.
 	 */
-	public Image getBG()
+	public Image getBGImage()
 	{
-		try
-		{
-			return this.background;
-		}
-		catch(NullPointerException e)
-		{
-			return null;
-		}
+		if(background != null)
+			return background;
+		
+		return null;
+	}
+	
+	public void setBGImage(Image background) {
+		
+		if(background != null)
+			this.background = background;
 	}
 	
 	/**
@@ -65,7 +68,7 @@ public abstract class Gui implements GuiInterface
 	{
 		try
 		{
-			return myColor;
+			return bgColor;
 		}
 		catch(NullPointerException e)
 		{
@@ -73,6 +76,77 @@ public abstract class Gui implements GuiInterface
 		}
 	}
 	
+	/**
+	 * Sets the background color to the given R-G-B code with alpha transparency.
+	 * 
+	 * @param r Red integer of the given color code.
+	 * @param g Green integer of the given color code.
+	 * @param b Blue integer of the given color code.
+	 * @param a Alpha integer of the given color code.
+	 */
+	public void setBGColor(int r, int g, int b, int a)
+	{
+		this.bgColor = new Color(r, g, b, a);
+	}
+	
+	/**
+	 * Sets the background to the given color.
+	 * 
+	 * @param color The color for the background.
+	 */
+	public void setBGColor(Color color)
+	{
+		this.bgColor = color;
+	}
+	
+	/**
+	 * Returns the last visited Gui if applicable.
+	 */
+	public Gui getParent() {
+		
+		return this.parent;
+	}
+	
+	/**
+	 * Usually only used by the GuiHandler class, but feel free to abuse it as needed.
+	 */
+	public void setParent(Gui par) {
+		
+		this.parent = par;
+	}
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+	/**
+	 * @return the titleColor
+	 */
+	public Color getTitleColor() {
+		return titleColor;
+	}
+
+
+	/**
+	 * @param titleColor the titleColor to set
+	 */
+	public void setTitleColor(Color titleColor) {
+		this.titleColor = titleColor;
+	}
+	
+
+
 	/**
 	 * Draws the title text of the GUi.
 	 * 
@@ -86,14 +160,14 @@ public abstract class Gui implements GuiInterface
 		Font old = g.getFont();
 		g.setFont(new Font("Arial", 3, 65));
 		
-		Rectangle2D rect = page.getFontMetrics().getStringBounds(title, page);
+		Rectangle2D rect = page.getFontMetrics().getStringBounds(getTitle(), page);
 		
 		g.setColor(Color.DARK_GRAY);
 		
-		page.drawString(title, ((width / 2) - ((int) rect.getWidth() / 2)) + 2, titleY + 2);
+		page.drawString(getTitle(), ((width / 2) - ((int) rect.getWidth() / 2)) + 2, titleY + 2);
 		
-		g.setColor(this.titleColor);
-		page.drawString(title, (width / 2) - ((int) rect.getWidth() / 2), titleY);
+		g.setColor(this.getTitleColor());
+		page.drawString(getTitle(), (width / 2) - ((int) rect.getWidth() / 2), titleY);
 		
 		g.setFont(old);
 	}
@@ -218,30 +292,6 @@ public abstract class Gui implements GuiInterface
 		for(GuiComponent b : components)
 			b.onUpdate();
 	}
-	
-	/**
-	 * Sets the background color to the given R-G-B code with alpha transparency.
-	 * 
-	 * @param r Red integer of the given color code.
-	 * @param g Green integer of the given color code.
-	 * @param b Blue integer of the given color code.
-	 * @param a Alpha integer of the given color code.
-	 */
-	public void setBG(int r, int g, int b, int a)
-	{
-		this.myColor = new Color(r, g, b, a);
-	}
-	
-	/**
-	 * Sets the background to the given color.
-	 * 
-	 * @param color The color for the background.
-	 */
-	public void setBG(Color color)
-	{
-		this.myColor = color;
-	}
-	
 }
 
 interface GuiInterface

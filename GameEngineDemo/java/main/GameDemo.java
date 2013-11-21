@@ -9,11 +9,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import src.AnimPanel;
+import src.Entity;
+import src.GamePanel;
 import src.KeyBinding;
-
-import com.anangrybeaver.src.Entity;
-import com.anangrybeaver.src.GamePanel;
-import com.anangrybeaver.src.Wall;
+import src.Wall;
 
 /**
  * Demo engine of new Game class.

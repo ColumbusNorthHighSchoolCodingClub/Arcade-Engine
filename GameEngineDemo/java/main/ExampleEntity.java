@@ -6,9 +6,8 @@ import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.anangrybeaver.src.Entity;
-
 import src.AnimPanel;
+import src.Entity;
 
 public class ExampleEntity extends Entity {
 

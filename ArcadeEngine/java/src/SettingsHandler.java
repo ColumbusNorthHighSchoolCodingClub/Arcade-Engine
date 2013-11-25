@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * Handles all settings for VSGUI
+ * Handles settings for AnimPanel
  * 
- * @author thatapplefreak
+ * @author David Baker
  */
 public class SettingsHandler
 {

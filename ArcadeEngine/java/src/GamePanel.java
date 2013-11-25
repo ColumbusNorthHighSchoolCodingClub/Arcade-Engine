@@ -3,6 +3,12 @@ package src;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+/**
+ * Main component for Game aspects of the Arcade Engine.
+ * 
+ * @author David Baker
+ * @version 2.0.1
+ */
 @SuppressWarnings("serial")
 public abstract class GamePanel extends AnimPanel {
 
@@ -35,9 +41,11 @@ public abstract class GamePanel extends AnimPanel {
 	}
 	
 	@Override
+	@SuppressWarnings("unchecked")
 	public void process() {
 
 		if(entities != null) for(Entity ent : entities) {
+			
 			
 			ArrayList<Entity> temps = (ArrayList<Entity>) entities.clone();
 			

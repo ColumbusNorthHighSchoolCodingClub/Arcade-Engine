@@ -15,7 +15,7 @@ import src.AnimPanel;
  * Class AppletArcadeRunner Runs and animates subclasses of MotionPanel
  * 
  * @author David Baker
- * @version 5-23-2013
+ * @version 11-25-2013
  */
 
 @SuppressWarnings("serial")
@@ -37,9 +37,9 @@ public class AppletRunner extends Applet
 	
 	public void addFrameComponents()
 	{
-		setName(this.world.getMyName() + " - " + this.world.getPreferredSize().width + "x" + this.world.getPreferredSize().height);
+		this.setName(this.world.getMyName() + " - " + this.world.getPreferredSize().width + "x" + this.world.getPreferredSize().height);
 		
-		setPreferredSize(new Dimension(world.getWidth(), world.getHeight()));
+		this.setPreferredSize(new Dimension(world.getWidth(), world.getHeight()));
 		this.setSize(new Dimension(world.getWidth(), world.getHeight()));
 		
 		this.add(this.world);

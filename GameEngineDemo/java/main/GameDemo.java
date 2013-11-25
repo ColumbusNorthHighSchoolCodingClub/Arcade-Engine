@@ -85,7 +85,7 @@ public class GameDemo extends GamePanel
 			instance.getGuiHandler().setDebugState(true);
 			
 			// ---LOAD ALL RESOURCES---
-			instance.initGraphics();
+			instance.initRes();
 			
 			instance.addEntity(new Wall(instance, 0, 0, 5, 700));
 			instance.addEntity(new Wall(instance, 595, 0, 5, 700));
@@ -94,6 +94,11 @@ public class GameDemo extends GamePanel
 		}
 		
 		return instance;
+	}
+	
+	@Override
+	public void initRes() {
+		
 	}
 	
 	public void reset() {
@@ -131,7 +136,7 @@ public class GameDemo extends GamePanel
 		}
 		
 		// --------------------GUI--------------------
-		guihandler.drawGui(g);
+		guiHandler.drawGui(g);
 		
 		g.setColor(new Color(255, 255, 255, brightness));
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -151,7 +156,7 @@ public class GameDemo extends GamePanel
 			super.process();
 		}
 		
-		guihandler.updateGui();
+		guiHandler.updateGui();
 	}
 	
 	public GameModes[] getGameModes() {
@@ -175,8 +180,6 @@ public class GameDemo extends GamePanel
 		this.mode = gm;
 	}
 	
-	
-	
 	public int getBrightness()
 	{
 		return this.brightness;
@@ -187,16 +190,7 @@ public class GameDemo extends GamePanel
 		this.brightness = brightness;
 	}
 	
-
-	public void initGraphics()
-	{
-		
-	}
 	
-	public void initMusic()
-	{
-		
-	}
 	
 	
 }

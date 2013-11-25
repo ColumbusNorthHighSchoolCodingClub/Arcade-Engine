@@ -13,10 +13,10 @@ import src.KeyBinding;
 import src.ResUtil;
 
 /**
- * Demo engine of new Game class.
+ * Demo showing uses of AnimPanel class.
  * 
  * @author David Baker
- * @version Demo v2.1_1
+ * @version Demo v3.1.0
  */
 @SuppressWarnings("serial")
 public class ArcadeDemo extends AnimPanel
@@ -51,18 +51,18 @@ public class ArcadeDemo extends AnimPanel
 			
 			instance.createInstance("Demo", 600, 700);
 			
-			instance.setResizable(false);
+			instance.setResizable(true);
 			
 			instance.setTimerDelay(60);
 			
-			instance.getKeyBoardHandler().addBindings(((ArcadeDemo) instance).systemBindings);
+			instance.getKeyBoardHandler().addBindings(instance.systemBindings);
 			
 			instance.createGuiHandler(new GuiMainMenu(instance));
 			instance.getGuiHandler().addDebug(new GuiDebug(instance));
 			instance.getGuiHandler().setDebugState(true);
 			
 			// ---LOAD ALL RESOURCES---
-			instance.initGraphics();
+			instance.initRes();
 			
 		}
 		
@@ -89,7 +89,7 @@ public class ArcadeDemo extends AnimPanel
 		}
 		
 		// --------------------GUI--------------------
-		guihandler.drawGui(g);
+		guiHandler.drawGui(g);
 	
 		return g;
 	}
@@ -106,9 +106,14 @@ public class ArcadeDemo extends AnimPanel
 			
 		}
 		
-		guihandler.updateGui();
+		guiHandler.updateGui();
 	}
 
+	@Override
+	public void initRes() {
+		
+	}
+	
 	public Image getCurrentBG() {
 		return currentBG;
 	}
@@ -118,16 +123,8 @@ public class ArcadeDemo extends AnimPanel
 		if(img != null)
 			currentBG = img;
 	}
+
 	
-	public void initGraphics()
-	{
-		
-	}
-	
-	public void initMusic()
-	{
-		
-	}
 	
 	
 }

@@ -15,36 +15,34 @@ import src.AnimPanel;
  * Class ArcadeRunner Runs and animates subclasses of MotionPanel
  * 
  * @author David Baker
- * @version 5-23-13
+ * @version 11-25-13
  */
 public class Runner {
 	AnimPanel world = ArcadeDemo.getInstance();
 
 	// ==============================================================================
-	// --- Typically you will never need to edit any of the code below this
-	// line. ---
+	// --- Typically you will never need to edit any of the code below this line. ---
 	// ==============================================================================
 
-	JFrame myFrame;
+	private JFrame myFrame;
 
 	public Runner() {
 		this.myFrame = new JFrame();
 		this.myFrame.addWindowListener(new Closer());
 
 		addFrameComponents();
-
+		
 		this.myFrame.pack();
+		
 		this.myFrame.setVisible(true);
 
 		this.myFrame.setResizable(world.isResizeable());
-
+		
 		startAnimation();
 	}
 
 	public void addFrameComponents() {
-		this.myFrame.setTitle(this.world.getMyName() + " - "
-				+ this.world.getPreferredSize().width + "x"
-				+ this.world.getPreferredSize().height);
+		this.myFrame.setTitle(this.world.getMyName());
 
 		this.myFrame.add(this.world);
 	}
@@ -57,6 +55,8 @@ public class Runner {
 										// ActionListener object during it's
 										// construction!
 					public void actionPerformed(ActionEvent e) {
+						
+						if(!Runner.this.world.isResizeable())Runner.this.myFrame.pack();
 						Runner.this.myFrame.getComponent(0).repaint();
 						Runner.this.world.process();
 					}

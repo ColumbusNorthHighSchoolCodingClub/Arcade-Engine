@@ -19,34 +19,47 @@ import src.gui.GuiHandler;
  * Main component for Arcade Engine.
  * 
  * @author David Baker
- * @version 1.1
+ * @version 2.1.1
  */
 @SuppressWarnings("serial")
-public abstract class AnimPanel extends JPanel implements KeyListener, MouseListener, MouseMotionListener, GameInterface
+public abstract class AnimPanel extends JPanel implements KeyListener, MouseListener, MouseMotionListener
 {
 	// Variables
 	private String myName;
 	
 	private int timerDelay = 60;
 	
-	private int FPS = 60;
+	private int FPS = 0;
 	private long nextFPSTime = 0;
 	private int fpsLoop = 0;
 	
-	protected int frameNumber;
+	private int frameNumber;
 	
-	private Point lastMouseCoord;
+	private Point lastMouseCoord = new Point(-1, -1);
 	
 	// Handlers
-	protected GuiHandler guihandler;
-	protected KeyBindingHandler kbhandler = new KeyBindingHandler();
-	
-	protected SettingsHandler sethelper = new SettingsHandler();
+	protected GuiHandler guiHandler;
+	protected KeyBindingHandler kbHandler = new KeyBindingHandler();
+	protected SettingsHandler settingsHandler = new SettingsHandler();
 	
 	// Booleans
 	private boolean paused = true;
 	
 	private boolean resizable = false;
+	
+	public abstract Graphics renderFrame(Graphics g);
+	
+	public abstract void process();
+	
+	public abstract void initRes(); 
+	
+
+	public String getMyName()
+	{
+		
+		return myName;
+	}
+	
 	
 	/**
 	 * Constructor for objects of class Game
@@ -69,32 +82,32 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		
-		
 		// ---LOAD ALL RESOURCES---
-		initGraphics();
+		initRes();
 	}
 	
 	
 	public void createGuiHandler(Gui gui) {
 		
-		this.guihandler = new GuiHandler(this, gui);
+		this.guiHandler = new GuiHandler(this, gui);
 	}
 	
 	// Getters
 	public GuiHandler getGuiHandler()
 	{
-		return guihandler;
+		return guiHandler;
 	}
 	
 	public KeyBindingHandler getKeyBoardHandler()
 	{
-		return kbhandler;
+		return kbHandler;
 	}
 	
-	public String getMyName()
-	{
-		return myName;
+	public SettingsHandler getSettingsHandler() {
+		
+		return settingsHandler;
 	}
+	
 	
 	public void setResizable(boolean value) {
 		
@@ -116,8 +129,7 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 			
 			nextFPSTime = System.currentTimeMillis() + 1000L;
 		}
-		
-		fpsLoop++;
+		else fpsLoop++;
 	}
 	
 	public void setTimerDelay(int delay)
@@ -135,6 +147,11 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 		return FPS;
 	}
 	
+	public int getFrameNumber() {
+		
+		return frameNumber;
+	}
+	
 	public boolean isPaused()
 	{
 		return paused;
@@ -145,19 +162,29 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 		paused = state;
 	}
 	
+	
+	public void paintComponent(Graphics g)
+	{
+		frameNumber++;
+		this.requestFocusInWindow();
+		
+		g.setColor(Color.white);
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		
+		g = renderFrame(g);
+	}
+	
+	
 	@Override
 	public Point getMousePosition()
 	{
 		try
 		{
-			Integer.valueOf(super.getMousePosition().x + 1);
-			Integer.valueOf(super.getMousePosition().y + 1);
-			
-			if(!(Double.isNaN(super.getMousePosition().x) || Double.isNaN(super.getMousePosition().y)))
-			{	
-				lastMouseCoord = super.getMousePosition();
-				return super.getMousePosition();
-			}
+			Point temp = new Point(super.getMousePosition().x + 1 - 1, super.getMousePosition().y + 1 - 1);
+				
+			lastMouseCoord = temp;
+			return super.getMousePosition();
+		
 		}
 		catch(Exception e)
 		{
@@ -185,18 +212,6 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 	
 	public boolean isMiddleClickHeld() {
 		return this.middleClickHeld;
-	}
-	
-
-	public void paintComponent(Graphics g)
-	{
-		frameNumber++;
-		this.requestFocusInWindow();
-		
-		g.setColor(Color.white);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-		
-		g = renderFrame(g);
 	}
 	
 	private boolean leftClickHeld = false, rightClickHeld = false, middleClickHeld = false;
@@ -236,7 +251,7 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		if(e.getButton() == MouseEvent.BUTTON1) guihandler.getGui().updateOnClick();
+		if(e.getButton() == MouseEvent.BUTTON1) guiHandler.getGui().updateOnClick();
 	}
 	
 	public void mouseEntered(MouseEvent e)
@@ -247,51 +262,36 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 	{
 	}
 	
-	public void mouseMoved(MouseEvent e)
-	{
-		new Point(e.getXOnScreen(), e.getYOnScreen());
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+	
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		
 	}
 	
-	public void mouseDragged(MouseEvent e)
-	{
-		new Point(e.getXOnScreen(), e.getYOnScreen());
-	}
-	
+	@Override
 	public void keyPressed(KeyEvent e)
 	{
 		String key = KeyEvent.getKeyText(e.getKeyCode());
 		
-		
-		this.kbhandler.runBindings(key, this);	
+		this.kbHandler.runBindings(key, this);	
 	}
 	
+	@Override
 	public void keyReleased(KeyEvent e)
 	{
 		String key = KeyEvent.getKeyText(e.getKeyCode());
 		
-		this.kbhandler.removeKey(key);
+		this.kbHandler.removeKey(key);
 	}
 	
-	public void keyTyped(KeyEvent e)
-	{
-		
-	}
-	
-	public void initGraphics()
-	{
-		
-	}
-	
-	public void initMusic()
-	{
-		
-	}
-	
-}
 
-interface GameInterface
-{
-	public Graphics renderFrame(Graphics g);
-	
-	public void process();
 }

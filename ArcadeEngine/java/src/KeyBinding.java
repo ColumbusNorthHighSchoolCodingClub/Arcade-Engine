@@ -1,12 +1,13 @@
 package src;
 
-public class KeyBinding implements KeyBindingInterface
+public class KeyBinding
 {
 	
 	/**
 	 * Key binding to be fired only once when key is pressed.
 	 */
-	public void singleBinding(String key, AnimPanel game)
+	public void singleBinding(String key, AnimPanel game) {
+	}
 	{
 		
 	}
@@ -20,9 +21,3 @@ public class KeyBinding implements KeyBindingInterface
 	}
 }
 
-interface KeyBindingInterface
-{
-	public void singleBinding(String key, AnimPanel game);
-	
-	public void repeatBinding(String key, AnimPanel game);
-}

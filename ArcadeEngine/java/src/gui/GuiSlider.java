@@ -25,7 +25,6 @@ public class GuiSlider extends GuiComponent
 	private double valueLimit = 10;
 	private double value;
 	
-	private boolean held = false;
 	private boolean snap = true;
 	
 	/**
@@ -40,9 +39,9 @@ public class GuiSlider extends GuiComponent
 	 * @param snap Snap to ticks or not, snapping recommended.
 	 * @param l Label of the slider.
 	 */
-	public GuiSlider(AnimPanel panel, double x, int y, double w, int h, double startValue, double valueLimit, boolean snap, String l)
+	public GuiSlider(AnimPanel panel, String label, double x, int y, double w, int h, double startValue, double valueLimit, boolean snap)
 	{
-		super(panel, l, (int) x, (int) y, (int) w, (int) h);
+		super(panel, label, (int) x, (int) y, (int) w, (int) h);
 		
 		this.valueLimit = valueLimit;
 		
@@ -100,11 +99,6 @@ public class GuiSlider extends GuiComponent
 		return value;
 	}
 	
-	public boolean isHeld()
-	{
-		return this.held;
-	}
-	
 	/**
 	 * Sets the current value of the slider to the give double.
 	 */
@@ -144,7 +138,7 @@ public class GuiSlider extends GuiComponent
 		
 		page.setColor(this.secColor);
 		
-		Font font = new Font("Noto Sans", Font.BOLD, 14);
+		Font font = new Font("Arial", Font.BOLD, 14);
 		Font old = g.getFont();
 		g.setFont(font);
 		
@@ -153,9 +147,21 @@ public class GuiSlider extends GuiComponent
 		Rectangle2D rect = page.getFontMetrics().getStringBounds(str, page);
 		
 		int drawX = (this.boxOutline.width / 2 + this.boxOutline.x) - (int) rect.getWidth() / 2;
-		// int drawY = (this.boxOutline.height / 2 + this.boxOutline.y) - (int) (rect.getHeight() / 2 + rect.getY());
+		int drawY = (int) (this.boxOutline.y + this.boxOutline.height - 5);
 		
-		page.drawString(str, drawX, (int) (this.boxOutline.y + this.boxOutline.height - 5));
+		int shad = 1;
+		
+		g.setColor(secColor);
+		g.drawString(label, drawX, drawY);
+		
+		g.drawString(label, drawX + 2, drawY);
+		
+		g.drawString(label, drawX + 2, drawY + 2);
+		
+		g.drawString(label, drawX, drawY + 2);
+		
+		g.setColor(primColor.brighter());
+		g.drawString(label, drawX + shad, drawY + shad);
 		
 		page.setFont(old);
 	}
@@ -206,9 +212,21 @@ public class GuiSlider extends GuiComponent
 		Rectangle2D rect = page.getFontMetrics().getStringBounds(str, page);
 		
 		int drawX = (this.boxOutline.width / 2 + this.boxOutline.x) - (int) rect.getWidth() / 2;
-		// int drawY = (this.boxOutline.height / 2 + this.boxOutline.y) - (int) (rect.getHeight() / 2 + rect.getY());
+		int drawY = (int) (this.boxOutline.y + this.boxOutline.height - 5);
 		
-		page.drawString(str, drawX, (int) (this.boxOutline.y + this.boxOutline.height - 5));
+		int shad = 1;
+		
+		g.setColor(secColor);
+		g.drawString(str, drawX, drawY);
+		
+		g.drawString(str, drawX + 2, drawY);
+		
+		g.drawString(str, drawX + 2, drawY + 2);
+		
+		g.drawString(str, drawX, drawY + 2);
+		
+		g.setColor(primColor.brighter());
+		g.drawString(str, drawX + shad, drawY + shad);
 		
 		page.setFont(old);
 	}
@@ -218,9 +236,9 @@ public class GuiSlider extends GuiComponent
 		
 		if(checkMouse() && panel.isLeftClickHeld()) {
 			
-			Point point = this.panel.getMousePosition();
+			Point point = this.panel.getMousePosition() ;
 			
-			int x = point.x;
+			int x = point.x - this.handleImage.getWidth(null)/2;
 			
 			if(x < bar.x || ((x - bar.x) / scale) < 0) this.value = 0;
 			

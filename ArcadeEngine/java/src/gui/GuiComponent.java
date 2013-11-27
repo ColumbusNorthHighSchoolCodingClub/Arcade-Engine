@@ -6,12 +6,12 @@ import java.awt.Point;
 
 import src.AnimPanel;
 
-public abstract class GuiComponent implements GuiComponentInterface
+public abstract class GuiComponent
 {
 	protected AnimPanel panel;
 	
-	protected Color primColor = new Color(228, 101, 60);
-	protected Color secColor = new Color(254, 212, 196);
+	protected Color primColor = new Color(102, 185, 204);
+	protected Color secColor = new Color(17, 23, 24);
 	protected Color disabledColor = new Color(60, 101, 228);
 	
 	protected String label;
@@ -23,12 +23,14 @@ public abstract class GuiComponent implements GuiComponentInterface
 	protected int width;
 	
 	protected boolean enabled = true;
-	protected boolean autoplaced = false;
+	protected boolean autoplaced;
 	protected boolean hovered = false;
 	
 	public GuiComponent(AnimPanel panel, String label, int x, int y, int width, int height) {
 		
 		this(panel, label, width, height);
+		
+		this.label = label;
 		
 		this.x = x;
 		this.y = y;
@@ -49,28 +51,40 @@ public abstract class GuiComponent implements GuiComponentInterface
 	}
 	
 	
+	/**
+	 * Draw the component onto the Screen.
+	 * 
+	 * @param g The graphics object.
+	 * @param panel The game. (put "this" here)
+	 */
+	public abstract void draw(Graphics g);
+	
+	/**
+	 * Draw the component onto the Screen.
+	 * 
+	 * @param g The graphics object.
+	 * @param panel The game. (put "this" here)
+	 */
+	public abstract void draw(int x, int y, Graphics g);
+	
+	/**
+	 * Updates the component every tick
+	 */
+	public abstract void onUpdate();
+	
+	/**
+	 * Returns true if the mouse is on the component.
+	 */
+	public abstract boolean checkMouse();
+	
 	protected int getHeight()
 	{
-		try
-		{
-			return this.height;
-		}
-		catch(NullPointerException e)
-		{
-			return 0;
-		}
+		return this.height;
 	}
 	
 	protected int getWidth()
 	{
-		try
-		{
-			return this.width;
-		}
-		catch(NullPointerException e)
-		{
-			return 0;
-		}
+		return this.width;
 	}
 	
 	/**
@@ -79,12 +93,10 @@ public abstract class GuiComponent implements GuiComponentInterface
 	 * @param prim Primary Fill Color of the Button.
 	 * @param sec Secondary Color for the Highlight and Text of the Button.
 	 */
-	public GuiComponent setColors(Color prim, Color sec)
+	public void setColors(Color prim, Color sec)
 	{
 		this.primColor = prim;
 		this.secColor = sec;
-		
-		return this;
 	}
 	
 	/**
@@ -92,11 +104,9 @@ public abstract class GuiComponent implements GuiComponentInterface
 	 * 
 	 * @param prim Primary Fill Color of the Button.
 	 */
-	public GuiComponent setPrimColor(Color prim)
+	public void setPrimColor(Color prim)
 	{
 		this.primColor = prim;
-		
-		return this;
 	}
 	
 	/**
@@ -104,40 +114,25 @@ public abstract class GuiComponent implements GuiComponentInterface
 	 * 
 	 * @param sec Secondary Color for the Highlight and Text of the Button.
 	 */
-	public GuiComponent setSecColor(Color sec)
+	public void setSecColor(Color sec)
 	{
 		this.secColor = sec;
-		
-		return this;
 	}
 	
 	/**
 	 * Set the button to be hovered or not.
 	 */
-	public GuiComponent setHovered(boolean state)
+	public void setHovered(boolean state)
 	{
 		this.hovered = state;
-		
-		return this;
 	}
 	
 	/**
 	 * Set the button to be enabled or not.
 	 */
-	public GuiComponent setEnabled(boolean enabled)
+	public void setEnabled(boolean enabled)
 	{
 		this.enabled = enabled;
-		
-		return this;
-	}
-	
-	/**
-	 * Returns true if the given label matches the buttons label.
-	 */
-	public boolean checkLabel(String label)
-	{
-		if(this.label.equals(label)) return true;
-		else return false;
 	}
 	
 	/**
@@ -172,31 +167,3 @@ public abstract class GuiComponent implements GuiComponentInterface
 	
 }
 
-interface GuiComponentInterface
-{
-	/**
-	 * Draw the component onto the Screen.
-	 * 
-	 * @param g The graphics object.
-	 * @param panel The game. (put "this" here)
-	 */
-	public void draw(Graphics g);
-	
-	/**
-	 * Draw the component onto the Screen.
-	 * 
-	 * @param g The graphics object.
-	 * @param panel The game. (put "this" here)
-	 */
-	public void draw(int x, int y, Graphics g);
-	
-	/**
-	 * Updates the component every tick
-	 */
-	public void onUpdate();
-	
-	/**
-	 * Returns true if the mouse is on the component.
-	 */
-	public boolean checkMouse();
-}

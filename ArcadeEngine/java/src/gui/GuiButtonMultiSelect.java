@@ -1,6 +1,5 @@
 package src.gui;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -61,63 +60,10 @@ public class GuiButtonMultiSelect extends GuiButton
 		Graphics2D page = (Graphics2D) g;
 		
 		// The Background color of the button.
-		page.setColor(new Color(254, 212, 196));
+		page.setColor(this.secColor);
 		page.fill(this.buttonShadow);
 		
 		// The main color of the button.
-		if(hovered)
-		{
-			if(isEnabled()) page.setColor(new Color(208, 81, 40));
-			if(!isEnabled()) page.setColor(new Color(60, 101, 228));
-		}
-		else
-		{
-			if(isEnabled()) page.setColor(new Color(228, 101, 60));
-			if(!isEnabled()) page.setColor(new Color(60, 101, 228));
-		}
-		
-		page.fill(this.button);
-		
-		// The color of the button text.
-		page.setColor(new Color(254, 212, 196));
-		
-		page.setColor(new Color(254, 212, 196));
-		
-		Font font = new Font("Noto Sans", Font.BOLD, 14);
-		Font old = g.getFont();
-		g.setFont(font);
-		
-		Rectangle2D rect = page.getFontMetrics().getStringBounds(label + state.name(), page);
-		
-		int drawX = (this.button.width / 2 + this.button.x) - (int) rect.getWidth() / 2;
-		int drawY = (this.button.height / 2 + this.button.y) - (int) (rect.getHeight() / 2 + rect.getY());
-		
-		page.drawString(label + state.name(), drawX, drawY);
-		
-		g.setFont(old);
-	}
-	
-	/**
-	 * Draws the button on to the screen.
-	 * 
-	 * @param g The graphics object
-	 * @param x The current x coord in the for loop for auto placement of buttons.
-	 * @param y The current y coord in the for loop for auto placement of buttons.
-	 */
-	public void draw(int x, int y, Graphics g)
-	{
-		// Draws the Button to be clicked upon.
-		Graphics2D page = (Graphics2D) g;
-		
-		this.button.setLocation(x + 2, y + 2);
-		this.buttonShadow.setLocation(x, y);
-		
-		// The Background color of the button.
-		page.setColor(secColor);
-		page.fill(this.buttonShadow);
-		
-		// The main color of the button.
-		
 		if(hovered)
 		{
 			
@@ -131,11 +77,8 @@ public class GuiButtonMultiSelect extends GuiButton
 		}
 		
 		page.fill(this.button);
-		
-		// The color of the button text.
-		page.setColor(secColor);
-		
-		Font font = new Font("Noto Sans", Font.BOLD, 14);
+			
+		Font font = new Font("Arial", Font.BOLD, 14);
 		Font old = g.getFont();
 		g.setFont(font);
 		
@@ -144,9 +87,37 @@ public class GuiButtonMultiSelect extends GuiButton
 		int drawX = (this.button.width / 2 + this.button.x) - (int) rect.getWidth() / 2;
 		int drawY = (this.button.height / 2 + this.button.y) - (int) (rect.getHeight() / 2 + rect.getY());
 		
-		page.drawString(label + state.name(), drawX, drawY);
+		int shad = 1;
+		
+		g.setColor(secColor);
+		g.drawString(label + state.name(), drawX, drawY);
+		
+		g.drawString(label + state.name(), drawX + 2, drawY);
+		
+		g.drawString(label + state.name(), drawX + 2, drawY + 2);
+		
+		g.drawString(label + state.name(), drawX, drawY + 2);
+		
+		g.setColor(primColor.brighter());
+		g.drawString(label + state.name(), drawX + shad, drawY + shad);
 		
 		g.setFont(old);
+	}
+	
+	/**
+	 * Draws the button on to the screen.
+	 * 
+	 * @param g The graphics object
+	 * @param x The current x coord in the for loop for auto placement of buttons.
+	 * @param y The current y coord in the for loop for auto placement of buttons.
+	 */
+	public void draw(int x, int y, Graphics g)
+	{
+		
+		this.button.setLocation(x + 2, y + 2);
+		this.buttonShadow.setLocation(x, y);
+		
+		this.draw(g);
 	}
 	
 	public void moveOn()

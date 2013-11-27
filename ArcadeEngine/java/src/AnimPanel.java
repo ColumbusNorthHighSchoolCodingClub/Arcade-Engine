@@ -114,7 +114,7 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 		this.resizable = value;
 	}
 	
-	public boolean isResizeable() {
+	public boolean isResizable() {
 	
 		return this.resizable;
 	}
@@ -239,12 +239,12 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 			if(leftClickHeld != false) leftClickHeld = false;
 		}
 		
-		else if(e.getButton() == MouseEvent.BUTTON3) {
-			if(rightClickHeld != false) rightClickHeld = false;
-		}
-		
 		else if(e.getButton() == MouseEvent.BUTTON2) {
 			if(middleClickHeld != false) middleClickHeld = false;
+		}
+		
+		else if(e.getButton() == MouseEvent.BUTTON3) {
+			if(rightClickHeld != false) rightClickHeld = false;
 		}
 	}
 	

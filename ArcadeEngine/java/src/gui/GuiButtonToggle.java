@@ -91,14 +91,11 @@ public class GuiButtonToggle extends GuiButton
 		}
 		page.fill(this.button);
 		
-		// The color of the button text.
-		page.setColor(secColor);
-		
 		label = titleOff;
 		if(state == true) label = titleOn;
 		if(state == false) label = titleOff;
 		
-		Font font = new Font("Noto Sans", Font.BOLD, 14);
+		Font font = new Font("Arial", Font.BOLD, 14);
 		Font old = g.getFont();
 		g.setFont(font);
 		
@@ -107,7 +104,19 @@ public class GuiButtonToggle extends GuiButton
 		int drawX = (this.button.width / 2 + this.button.x) - (int) rect.getWidth() / 2;
 		int drawY = (this.button.height / 2 + this.button.y) - (int) (rect.getHeight() / 2 + rect.getY());
 		
-		page.drawString(label, drawX, drawY);
+		int shad = 1;
+		
+		g.setColor(secColor);
+		g.drawString(label, drawX, drawY);
+		
+		g.drawString(label, drawX + 2, drawY);
+		
+		g.drawString(label, drawX + 2, drawY + 2);
+		
+		g.drawString(label, drawX, drawY + 2);
+		
+		g.setColor(primColor.brighter());
+		g.drawString(label, drawX + shad, drawY + shad);
 		
 		g.setFont(old);
 	}
@@ -121,49 +130,10 @@ public class GuiButtonToggle extends GuiButton
 	 */
 	public void draw(int x, int y, Graphics g)
 	{
-		// Draws the Button to be clicked upon.
-		Graphics2D page = (Graphics2D) g;
-		
 		this.button.setLocation(x + 2, y + 2);
 		this.buttonShadow.setLocation(x, y);
 		
-		// The Background color of the button.
-		page.setColor(secColor);
-		page.fill(this.buttonShadow);
-		
-		// The main color of the button.
-		if(hovered)
-		{
-			
-			if(isEnabled()) page.setColor(primColor.darker());
-			if(!isEnabled()) page.setColor(disabledColor);
-		}
-		else
-		{
-			if(isEnabled()) page.setColor(primColor);
-			if(!isEnabled()) page.setColor(disabledColor);
-		}
-		page.fill(this.button);
-		
-		// The color of the button text.
-		page.setColor(secColor);
-		
-		String label = titleOff;
-		if(state == true) label = titleOn;
-		if(state == false) label = titleOff;
-		
-		Font font = new Font("Noto Sans", Font.BOLD, 14);
-		Font old = g.getFont();
-		g.setFont(font);
-		
-		Rectangle2D rect = page.getFontMetrics().getStringBounds(label, page);
-		
-		int drawX = (this.button.width / 2 + this.button.x) - (int) rect.getWidth() / 2;
-		int drawY = (this.button.height / 2 + this.button.y) - (int) (rect.getHeight() / 2 + rect.getY());
-		
-		page.drawString(label, drawX, drawY);
-		
-		g.setFont(old);
+		this.draw(g);
 	}
 	
 	public void invertState()
@@ -178,14 +148,7 @@ public class GuiButtonToggle extends GuiButton
 	
 	public boolean getState()
 	{
-		try
-		{
-			return this.state;
-		}
-		catch(NullPointerException e)
-		{
-			return false;
-		}
+		return this.state;
 	}
 	
 }

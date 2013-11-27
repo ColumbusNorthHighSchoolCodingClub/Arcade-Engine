@@ -31,11 +31,9 @@ public class GuiButton extends GuiComponent
 	{
 		super(panel, l, x, y, w, h);
 		
-		this.autoplaced = false;
-		
 		this.buttonShadow = new Rectangle(x, y, w, h);
 		this.button = new Rectangle(x + 2, y + 2, w - 4, h - 4);
-		this.label = l;
+	
 	}
 	
 	/**
@@ -84,11 +82,7 @@ public class GuiButton extends GuiComponent
 		
 		page.fill(this.button);
 		
-		// The color of the button text.
-		page.setColor(secColor);
-		
-		
-		Font font = new Font("Noto Sans", Font.BOLD, 14);
+		Font font = new Font("Arial", Font.BOLD, 13);
 		Font old = g.getFont();
 		g.setFont(font);
 		
@@ -97,7 +91,21 @@ public class GuiButton extends GuiComponent
 		int drawX = (this.button.width / 2 + this.button.x) - (int) rect.getWidth() / 2;
 		int drawY = (this.button.height / 2 + this.button.y) - (int) (rect.getHeight() / 2 + rect.getY());
 		
-		page.drawString(label, drawX, drawY);
+		
+		int shad = 1;
+		
+		page.setColor(secColor);
+		g.drawString(label, drawX, drawY);
+		
+		g.drawString(label, drawX + 2, drawY);
+		
+		g.drawString(label, drawX + 2, drawY + 2);
+		
+		g.drawString(label, drawX, drawY + 2);
+		
+		g.setColor(primColor.brighter());
+		g.drawString(label, drawX + shad, drawY + shad);
+					
 		
 		g.setFont(old);
 	}
@@ -111,44 +119,11 @@ public class GuiButton extends GuiComponent
 	 */
 	public void draw(int x, int y, Graphics g)
 	{
-		Graphics2D page = (Graphics2D) g;
 		
 		this.button.setLocation(x + 2, y + 2);
 		this.buttonShadow.setLocation(x, y);
 		
-		page.setColor(secColor);
-		page.fill(this.buttonShadow);
-		
-		if(hovered)
-		{
-			
-			if(isEnabled()) page.setColor(primColor.darker());
-			if(!isEnabled()) page.setColor(disabledColor);
-		}
-		else
-		{
-			if(isEnabled()) page.setColor(primColor);
-			if(!isEnabled()) page.setColor(disabledColor);
-		}
-		
-		page.fill(this.button);
-		
-		// The color of the button text.
-		page.setColor(secColor);
-		
-		
-		Font font = new Font("Noto Sans", Font.BOLD, 14);
-		Font old = g.getFont();
-		g.setFont(font);
-		
-		Rectangle2D rect = page.getFontMetrics().getStringBounds(label, page);
-		
-		int drawX = (this.button.width / 2 + this.button.x) - (int) rect.getWidth() / 2;
-		int drawY = (this.button.height / 2 + this.button.y) - (int) (rect.getHeight() / 2 + rect.getY());
-		
-		page.drawString(label, drawX, drawY);
-		
-		g.setFont(old);
+		this.draw(g);
 	}
 	
 	public void onUpdate() {
@@ -171,7 +146,6 @@ public class GuiButton extends GuiComponent
 		}
 		catch(NullPointerException e)
 		{
-			e.printStackTrace();
 		}
 		
 		return false;

@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 
 import src.AnimPanel;
@@ -157,19 +156,13 @@ public abstract class Gui implements GuiInterface
 	{
 		Graphics2D page = (Graphics2D) g;
 		
-		Font old = g.getFont();
-		g.setFont(new Font("Arial", 3, 65));
+		Font font = new Font("Arial", 3, 65);
+		
+		g.setFont(font);
 		
 		Rectangle2D rect = page.getFontMetrics().getStringBounds(getTitle(), page);
 		
-		g.setColor(Color.DARK_GRAY);
-		
-		page.drawString(getTitle(), ((width / 2) - ((int) rect.getWidth() / 2)) + 2, titleY + 2);
-		
-		g.setColor(this.getTitleColor());
-		page.drawString(getTitle(), (width / 2) - ((int) rect.getWidth() / 2), titleY);
-		
-		g.setFont(old);
+		this.drawString(this.getTitle(), font, this.getTitleColor(),  ((width / 2) - ((int) rect.getWidth() / 2)) + 2, titleY + 2, page);
 	}
 	
 	/**
@@ -180,48 +173,39 @@ public abstract class Gui implements GuiInterface
 	 * @param size The size of the font to be used.
 	 * @param g The Graphics object.
 	 */
-	protected void drawString(String str, Point p, int size, Graphics g)
+	protected void drawString(String str, int x, int y, Graphics g)
 	{
-		int shad = 2;
-		if(size <= 20) shad = 1;
+		drawString(str, new Font("Arial", Font.BOLD, 12), x, y, g);
+	}
+	
+	protected void drawString(String str, Font font, int x, int y, Graphics g) {
+		
+		drawString(str, font, Color.DARK_GRAY, x, y, g);
+	}
+	
+	protected void drawString(String str, Font font, Color color, int x, int y, Graphics g) {
+		
+		int shad = 1;
 		
 		Font old = g.getFont();
-		g.setFont(new Font("Arial", Font.BOLD, size));
-		
-		g.setColor(Color.DARK_GRAY);
-		g.drawString(str, p.x + shad, p.y + shad);
+		g.setFont(font);
 		
 		g.setColor(Color.black);
-		g.drawString(str, p.x, p.y);
+		g.drawString(str, x, y);
 		
-		g.setFont(old);
-	}
-	
-	/**
-	 * Draws a given String with a given Color with a shadow for contrast.
-	 * 
-	 * @param str The String to be drawn.
-	 * @param p The Point to be drawn at.
-	 * @param size The size of the font to be used.
-	 * @param g The Graphics object.
-	 */
-	protected void drawString(String str, Color color, Point p, int size, Graphics g)
-	{
-		int shad = 2;
-		if(size <= 20) shad = 1;
+		g.drawString(str, x + 2, y);
 		
-		Font old = g.getFont();
-		g.setFont(new Font("Arial", Font.BOLD, size));
+		g.drawString(str, x + 2, y + 2);
 		
-		g.setColor(Color.BLACK);
-		g.drawString(str, p.x + shad, p.y + shad);
+		g.drawString(str, x, y + 2);
 		
 		g.setColor(color);
-		g.drawString(str, p.x, p.y);
-		
-		g.setFont(old);
+		g.drawString(str, x + shad, y + shad);
+				
+		g.setFont(old);	
 	}
 	
+
 	/**
 	 * Draws the buttons that aren't given coordinates at given point.
 	 * 

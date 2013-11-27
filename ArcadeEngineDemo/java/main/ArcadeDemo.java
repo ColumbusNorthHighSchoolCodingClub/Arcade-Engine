@@ -124,7 +124,4 @@ public class ArcadeDemo extends AnimPanel
 			currentBG = img;
 	}
 
-	
-	
-	
 }

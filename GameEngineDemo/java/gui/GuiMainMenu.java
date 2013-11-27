@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import main.ExampleEntity;
 import main.GameDemo;
 import src.AnimPanel;
 import src.ResUtil;
@@ -30,6 +31,13 @@ public class GuiMainMenu extends Gui
 		
 		this.setTitle("Game Engine");
 		this.setTitleColor(Color.GRAY);
+		
+		demo.addEntity(new ExampleEntity(demo, 20, 20, 20, 20));
+		demo.addEntity(new ExampleEntity(demo, 570, 670, 20, 20));
+		demo.addEntity(new ExampleEntity(demo, 20, 670, 20, 20));
+		demo.addEntity(new ExampleEntity(demo, 570, 20, 20, 20));
+		
+		demo.setPauseState(false);
 		
 		this.components = new GuiComponent[]
 		{
@@ -92,7 +100,7 @@ public class GuiMainMenu extends Gui
 	{
 		if(start.checkMouse())
 		{
-			demo.getGuiHandler().switchGui(new GuiInGame(this.panel));
+			demo.getGuiHandler().switchGui(new GuiIntro(this.panel));
 		}
 		else if(options.checkMouse())
 		{

@@ -2,6 +2,7 @@ package gui;
 
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 
@@ -29,19 +30,23 @@ public class GuiDebug extends Gui
 	@Override
 	public void drawGui(Graphics g)
 	{
-		int height = 0;
+		int height = -4;
 		int spacing = -2;
+		
+		final Font font = new Font("Arial", Font.BOLD, 13);
 		
 		for(String str : debug)
 		{
+			g.setFont(font);
+			
 			Rectangle2D rect = g.getFontMetrics().getStringBounds(str, g);
-			height += rect.getHeight();
+			
+			if(font.getSize() <= 20) height += rect.getHeight() + 1;
+			else height += rect.getHeight() + 2;
 			
 			g.setColor(new Color(85, 85, 85, 190));
-			g.fillRect(this.panel.getWidth() - (int) rect.getWidth() - 1, height - 11, (int) rect.getWidth() + 1, 12);
-			
-			g.setColor(Color.white);
-			g.drawString(str, this.panel.getWidth() - (int) rect.getWidth(), height);
+
+			this.drawString(str, font, Color.WHITE, this.panel.getWidth() - (int) rect.getWidth() - 2, height, g);
 			
 			height += spacing;
 		}

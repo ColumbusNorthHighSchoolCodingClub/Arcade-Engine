@@ -49,9 +49,6 @@ public class GameDemo extends GamePanel
 			
 			else if(key.equals("Q"))
 				instance.addEntity(new ExampleEntity(instance, instance.getMousePosition().x - 10, instance.getMousePosition().y - 10, 20, 20));
-
-			else if(key.equals("A"))
-				instance.addEntity(new ExampleEntity(instance, instance.getMousePosition().x - 50, instance.getMousePosition().y - 50, 100, 100));
 			
 			else if(key.equals("W")) {
 				instance.getEntities().clear();
@@ -74,7 +71,7 @@ public class GameDemo extends GamePanel
 			
 			instance.createInstance("Demo", 600, 700);
 			
-			instance.setResizable(true);
+			instance.setResizable(false);
 			
 			instance.setTimerDelay(60);
 			

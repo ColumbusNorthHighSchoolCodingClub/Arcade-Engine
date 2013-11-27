@@ -2,7 +2,6 @@ package main;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,7 +15,7 @@ public class ExampleEntity extends Entity {
 	private Color myColor, myOutline;
 	
 	public ExampleEntity(AnimPanel panel, int x, int y, int width, int height) {
-		super(panel, x, y, rand.nextInt(100) + 2, rand.nextInt(100) + 2);
+		super(panel, x, y, width, height);
 		
 		myColor = new Color(255, 20, 255, 150);
 		myOutline = new Color(myColor.getRed(), myColor.getGreen(), myColor.getBlue(), 255);

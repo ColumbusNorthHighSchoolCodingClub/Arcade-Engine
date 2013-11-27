@@ -36,7 +36,7 @@ public class Runner {
 		this.myFrame.pack();
 		this.myFrame.setVisible(true);
 
-		this.myFrame.setResizable(world.isResizeable());
+		this.myFrame.setResizable(world.isResizable());
 
 		startAnimation();
 	}
@@ -57,6 +57,7 @@ public class Runner {
 										// ActionListener object during it's
 										// construction!
 					public void actionPerformed(ActionEvent e) {
+						if(!Runner.this.myFrame.isResizable()) Runner.this.myFrame.pack();
 						Runner.this.myFrame.getComponent(0).repaint();
 						Runner.this.world.process();
 					}

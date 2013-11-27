@@ -55,17 +55,17 @@ public class GuiInGame extends Gui
 	
 	private GuiButtonMultiSelect colorChanger = new GuiButtonMultiSelect(panel, 150, 22, "BG Color: ", bgColor, BgColor.values()); // Will be the first button vertically.
 	
-	private GuiButtonToggle imageSwitch = (GuiButtonToggle) new GuiButtonToggle(panel,150, 22, "Background: 1", "Background: 2", false).setColors(new Color(20, 200, 40, 90), new Color(200, 90, 10, 90)),
+	private GuiButtonToggle imageSwitch =  new GuiButtonToggle(panel,150, 22, "Background: 1", "Background: 2", false),
 							sliderSwitch = new GuiButtonToggle(panel,150, 22, "Slider: Off", "Slider: On", true);
 	
-	private GuiSlider		slider = new GuiSlider(panel,150, 42, 54, 1000, true, "Slider");
+	private GuiSlider		slider = new GuiSlider(panel, 150, 42, 54, 1000, true, "Slider");
 
 	
 	public GuiInGame(AnimPanel panel)
 	{
 		super(panel);
 		
-		
+		imageSwitch.setColors(new Color(20, 200, 40, 90), new Color(200, 90, 10, 90));
 		colorChanger.setColors(Color.ORANGE.darker(), Color.darkGray.brighter());
 		// Construct new Components in the order you want them to appear if you don't want a special coordinate for each button.
 		// All components left without coordinates will be auto-placed vertically downwards from the given coordinate in the drawButtons method.

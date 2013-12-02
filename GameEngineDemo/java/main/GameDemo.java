@@ -8,7 +8,6 @@ import gui.GuiPaused;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import src.AnimPanel;
 import src.Entity;
 import src.GamePanel;
 import src.KeyBinding;
@@ -23,7 +22,6 @@ import src.Wall;
 @SuppressWarnings("serial")
 public class GameDemo extends GamePanel
 {
-	private static GameDemo instance;
 	
 	public enum GameModes
 	{
@@ -32,65 +30,56 @@ public class GameDemo extends GamePanel
 	
 	private GameModes mode = GameModes.NORMAL;
 	
-	private KeyBinding systemBindings = new KeyBinding()
+	private KeyBinding systemBindings = new KeyBinding(GameDemo.this)
 	{
 		@Override
-		public void singleBinding(String key, AnimPanel game)
+		public void singleBinding(String key)
 		{
 			// F3
-			if(key.equals("F3")) game.getGuiHandler().invertDebugState();
+			if(key.equals("F3")) GameDemo.this.getGuiHandler().invertDebugState();
 			
 			// Escape
 			else if(key.equals("Escape"))
 			{
-				if(game.getGuiHandler().getGui() instanceof GuiInGame) game.getGuiHandler().switchGui(new GuiPaused(GameDemo.getInstance()));
-				else if(game.getGuiHandler().getGui() instanceof GuiPaused) game.getGuiHandler().previousGui();
+				if(GameDemo.this.getGuiHandler().getGui() instanceof GuiInGame) GameDemo.this.getGuiHandler().switchGui(new GuiPaused(GameDemo.this));
+				else if(GameDemo.this.getGuiHandler().getGui() instanceof GuiPaused) GameDemo.this.getGuiHandler().previousGui();
 			}
 			
 			else if(key.equals("Q"))
-				instance.addEntity(new ExampleEntity(instance, instance.getMousePosition().x - 10, instance.getMousePosition().y - 10, 20, 20));
+				GameDemo.this.addEntity(new ExampleEntity(GameDemo.this, GameDemo.this.getMousePosition().x - 10, GameDemo.this.getMousePosition().y - 10, 20, 20));
 			
 			else if(key.equals("W")) {
-				instance.getEntities().clear();
+				GameDemo.this.getEntities().clear();
 				
-				instance.addEntity(new Wall(instance, 0, 0, 5, 700));
-				instance.addEntity(new Wall(instance, 595, 0, 5, 700));
-				instance.addEntity(new Wall(instance, 5, 0, 590, 5));
-				instance.addEntity(new Wall(instance, 5, 695, 590, 5));
+				GameDemo.this.addEntity(new Wall(GameDemo.this, 0, 0, 5, 700));
+				GameDemo.this.addEntity(new Wall(GameDemo.this, 595, 0, 5, 700));
+				GameDemo.this.addEntity(new Wall(GameDemo.this, 5, 0, 590, 5));
+				GameDemo.this.addEntity(new Wall(GameDemo.this, 5, 695, 590, 5));
 			}
 		}
 	};
 	
 	private int brightness = 0;
 	
-	public static AnimPanel getInstance() {
+	public GameDemo() {
 		
-		if(instance == null) {
-			
-			instance = new GameDemo();
-			
-			instance.createInstance("Demo", 600, 700);
-			
-			instance.setResizable(false);
-			
-			instance.setTimerDelay(60);
-			
-			instance.getKeyBoardHandler().addBindings(((GameDemo) instance).systemBindings);
-			
-			instance.createGuiHandler(new GuiMainMenu(instance));
-			instance.getGuiHandler().addDebug(new GuiDebug(instance));
-			instance.getGuiHandler().setDebugState(true);
-			
-			// ---LOAD ALL RESOURCES---
-			instance.initRes();
-			
-			instance.addEntity(new Wall(instance, 0, 0, 5, 700));
-			instance.addEntity(new Wall(instance, 595, 0, 5, 700));
-			instance.addEntity(new Wall(instance, 5, 0, 590, 5));
-			instance.addEntity(new Wall(instance, 5, 695, 590, 5));
-		}
+		this.createInstance("Demo", 600, 700);
 		
-		return instance;
+		this.setResizable(false);
+		
+		this.setTimerDelay(60);
+		
+		this.getKeyBoardHandler().addBindings(((GameDemo) this).systemBindings);
+		
+		this.createGuiHandler(new GuiMainMenu(this));
+		this.getGuiHandler().addDebug(new GuiDebug(this));
+		this.getGuiHandler().setDebugState(true);
+		
+		
+		this.addEntity(new Wall(this, 0, 0, 5, 700));
+		this.addEntity(new Wall(this, 595, 0, 5, 700));
+		this.addEntity(new Wall(this, 5, 0, 590, 5));
+		this.addEntity(new Wall(this, 5, 695, 590, 5));
 	}
 	
 	@Override
@@ -100,12 +89,12 @@ public class GameDemo extends GamePanel
 	
 	public void reset() {
 		
-		instance.getEntities().clear();
+		this.getEntities().clear();
 		
-		instance.addEntity(new Wall(instance, 0, 0, 5, 700));
-		instance.addEntity(new Wall(instance, 595, 0, 5, 700));
-		instance.addEntity(new Wall(instance, 5, 0, 590, 5));
-		instance.addEntity(new Wall(instance, 5, 695, 590, 5));
+		this.addEntity(new Wall(this, 0, 0, 5, 700));
+		this.addEntity(new Wall(this, 595, 0, 5, 700));
+		this.addEntity(new Wall(this, 5, 0, 590, 5));
+		this.addEntity(new Wall(this, 5, 695, 590, 5));
 	}
 
 	/**

@@ -18,7 +18,8 @@ import src.AnimPanel;
  * @version 11-25-13
  */
 public class Runner {
-	AnimPanel world = ArcadeDemo.getInstance();
+	
+	AnimPanel world = new ArcadeDemo();
 
 	// ==============================================================================
 	// --- Typically you will never need to edit any of the code below this line. ---

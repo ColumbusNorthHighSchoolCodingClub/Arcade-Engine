@@ -21,52 +21,39 @@ import src.ResUtil;
 @SuppressWarnings("serial")
 public class ArcadeDemo extends AnimPanel
 {
-	private static ArcadeDemo instance;
-	
 	private static Image currentBG = ResUtil.loadImage("bg1.png", ArcadeDemo.class);
 
-	private KeyBinding systemBindings = new KeyBinding()
+	private KeyBinding systemBindings = new KeyBinding(this)
 	{
 		@Override
-		public void singleBinding(String key, AnimPanel game)
+		public void singleBinding(String key)
 		{
 			// F3
-			if(key.equals("F3")) game.getGuiHandler().invertDebugState();
+			if(key.equals("F3")) ArcadeDemo.this.getGuiHandler().invertDebugState();
 			
 			// Escape
 			else if(key.equals("Escape"))
 			{
-				if(game.getGuiHandler().getGui() instanceof GuiInGame) game.getGuiHandler().switchGui(new GuiPaused(ArcadeDemo.getInstance()));
-				else if(game.getGuiHandler().getGui() instanceof GuiPaused) game.getGuiHandler().previousGui();
+				if(ArcadeDemo.this.getGuiHandler().getGui() instanceof GuiInGame) ArcadeDemo.this.getGuiHandler().switchGui(new GuiPaused(ArcadeDemo.this));
+				else if(ArcadeDemo.this.getGuiHandler().getGui() instanceof GuiPaused) ArcadeDemo.this.getGuiHandler().previousGui();
 			}
 			
 		}
 	};
 	
-	public static AnimPanel getInstance() {
+	public ArcadeDemo() {
+
+		this.createInstance("Demo", 600, 700);
 		
-		if(instance == null) {
-			
-			instance = new ArcadeDemo();
-			
-			instance.createInstance("Demo", 600, 700);
-			
-			instance.setResizable(true);
-			
-			instance.setTimerDelay(60);
-			
-			instance.getKeyBoardHandler().addBindings(instance.systemBindings);
-			
-			instance.createGuiHandler(new GuiMainMenu(instance));
-			instance.getGuiHandler().addDebug(new GuiDebug(instance));
-			instance.getGuiHandler().setDebugState(true);
-			
-			// ---LOAD ALL RESOURCES---
-			instance.initRes();
-			
-		}
+		this.setResizable(true);
 		
-		return instance;
+		this.setTimerDelay(60);
+		
+		this.getKeyBoardHandler().addBindings(this.systemBindings);
+		
+		this.createGuiHandler(new GuiMainMenu(this));
+		this.getGuiHandler().addDebug(new GuiDebug(this));
+		this.getGuiHandler().setDebugState(true);
 	}
 	
 	public void reset() {

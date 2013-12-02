@@ -2,11 +2,18 @@ package src;
 
 public class KeyBinding
 {
+	private AnimPanel panel;
+	
+	
+	public KeyBinding(AnimPanel panel) {
+		
+		this.panel = panel;
+	}
 	
 	/**
 	 * Key binding to be fired only once when key is pressed.
 	 */
-	public void singleBinding(String key, AnimPanel game) {
+	public void singleBinding(String key) {
 	}
 	{
 		
@@ -15,7 +22,7 @@ public class KeyBinding
 	/**
 	 * Key binding to be fired while key is pressed.
 	 */
-	public void repeatBinding(String key, AnimPanel game)
+	public void repeatBinding(String key)
 	{
 		
 	}

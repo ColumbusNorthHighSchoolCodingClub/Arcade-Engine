@@ -9,7 +9,7 @@ import main.ArcadeDemo;
 import src.AnimPanel;
 import src.ResUtil;
 import src.gui.Gui;
-import src.gui.GuiButtonMultiSelect;
+import src.gui.GuiButton;
 import src.gui.GuiButtonToggle;
 import src.gui.GuiComponent;
 import src.gui.GuiSlider;
@@ -27,20 +27,29 @@ public class GuiInGame extends Gui
 	private enum BgColor
 	{
 		// Create the availible Selections for the button to cycle through.
-		None(new Color(0, 0, 0, 0)),
-		Blue(new Color(0, 0, 255, 100)),
-		Green(new Color(0, 255, 0, 100)),
-		Red(new Color(255, 0, 0, 100)),
-		Magenta(new Color(255, 0, 255, 100)),
-		Yellow(new Color(255, 255, 0, 100));
+		NONE("None", new Color(0, 0, 0, 0)),
+		BLUE("Blue", new Color(0, 0, 255, 100)),
+		GREEN("Green", new Color(0, 255, 0, 100)),
+		RED("Red", new Color(255, 0, 0, 100)),
+		MAGENTA("Magenta", new Color(255, 0, 255, 100)),
+		YELLOW("Yellow", new Color(255, 255, 0, 100));
+		
 		
 		// Treat the rest below this like a class
 		private Color myColor;
 		
+		private String myName;
+		
 		// Constructor has no modifier statements.
-		BgColor(Color color)
+		BgColor(String name, Color color)
 		{
+			myName = name;
 			myColor = color;
+		}
+		
+		public String getName() {
+			
+			return myName;
 		}
 		
 		public Color getColor() {
@@ -50,10 +59,10 @@ public class GuiInGame extends Gui
 	}
 	
 	// The local Enum for the button
-	private BgColor bgColor = BgColor.None;
+	private BgColor bgColor = BgColor.NONE;
 	
 	
-	private GuiButtonMultiSelect colorChanger = new GuiButtonMultiSelect(panel, 150, 22, "BG Color: ", bgColor, BgColor.values()); // Will be the first button vertically.
+	private GuiButton colorChanger = new GuiButton(panel, 150, 22, "BG Color: None"); // Will be the first button vertically.
 	
 	private GuiButtonToggle imageSwitch =  new GuiButtonToggle(panel,150, 22, "Background: 1", "Background: 2", false),
 							sliderSwitch = new GuiButtonToggle(panel,150, 22, "Slider: Off", "Slider: On", true);
@@ -103,12 +112,12 @@ public class GuiInGame extends Gui
 	{
 		if(colorChanger.checkMouse())
 		{
-			colorChanger.moveOn();
-			// Update the "Enum" by refering back to the "enum" that we are working with.;
-			bgColor = (BgColor) colorChanger.getState();
-		
+			if(bgColor.ordinal() < BgColor.values().length - 1) bgColor = BgColor.values()[bgColor.ordinal() + 1];
+			else bgColor = BgColor.values()[0];
 			// Set the new "Enum"
 			this.setBGColor(this.bgColor.getColor());
+			
+			colorChanger.setLabel("BG Color: " + bgColor.getName());
 		}
 		
 		else if(imageSwitch.checkMouse())

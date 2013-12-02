@@ -77,14 +77,19 @@ public abstract class GuiComponent
 	 */
 	public abstract boolean checkMouse();
 	
-	protected int getHeight()
+	public int getHeight()
 	{
 		return this.height;
 	}
 	
-	protected int getWidth()
+	public int getWidth()
 	{
 		return this.width;
+	}
+	
+	public void setLabel(String label) {
+		
+		this.label = label;
 	}
 	
 	/**

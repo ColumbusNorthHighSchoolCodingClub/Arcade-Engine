@@ -14,16 +14,16 @@ public class KeyBindingHandler
 		customBindings.add(binding);
 	}
 	
-	public void runBindings(String key, AnimPanel game)
+	public void runBindings(String key)
 	{
 		for(KeyBinding b : customBindings)
-			b.repeatBinding(key, game);
+			b.repeatBinding(key);
 		
 		if(this.keysPressed.contains(key) == false)
 		{
 			keysPressed.add(key);
 			
-			singleBindings(key, game);
+			singleBindings(key);
 		}
 	}
 	
@@ -32,9 +32,9 @@ public class KeyBindingHandler
 		if(keysPressed.contains(key)) keysPressed.remove(key);
 	}
 	
-	private void singleBindings(String key, AnimPanel game)
+	private void singleBindings(String key)
 	{
 		for(KeyBinding b : customBindings)
-			b.singleBinding(key, game);
+			b.singleBinding(key);
 	}
 }

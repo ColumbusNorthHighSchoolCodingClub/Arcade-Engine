@@ -18,7 +18,7 @@ import src.AnimPanel;
  * @version 5-23-13
  */
 public class Runner {
-	AnimPanel world = GameDemo.getInstance();
+	AnimPanel world = new GameDemo();
 
 	// ==============================================================================
 	// --- Typically you will never need to edit any of the code below this

@@ -282,7 +282,7 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 	{
 		String key = KeyEvent.getKeyText(e.getKeyCode());
 		
-		this.kbHandler.runBindings(key, this);	
+		this.kbHandler.runBindings(key);	
 	}
 	
 	@Override

@@ -47,7 +47,7 @@ public class AppletRunner extends Applet
 	
 	public void startAnimation()
 	{
-		Timer animation = new Timer(1000 / this.world.getFPS(), new ActionListener()
+		Timer animation = new Timer(1000 / this.world.getTimerDelay(), new ActionListener()
 		{ // This is something you may not have seen before...
 			// We are coding a method within the ActionListener object during it's construction!
 					public void actionPerformed(ActionEvent e)

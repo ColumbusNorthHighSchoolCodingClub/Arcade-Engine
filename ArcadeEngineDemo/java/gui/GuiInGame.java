@@ -64,8 +64,8 @@ public class GuiInGame extends Gui
 	
 	private GuiButton colorChanger = new GuiButton(panel, 150, 22, "BG Color: None"); // Will be the first button vertically.
 	
-	private GuiButtonToggle imageSwitch =  new GuiButtonToggle(panel,150, 22, "Background: 1", "Background: 2", false),
-							sliderSwitch = new GuiButtonToggle(panel,150, 22, "Slider: Off", "Slider: On", true);
+	private GuiButtonToggle imageSwitch =  new GuiButtonToggle(panel, 150, 22, "Background: 2", "Background: 1", true),
+							sliderSwitch = new GuiButtonToggle(panel, 150, 22, "Slider: Off", "Slider: On", true);
 	
 	private GuiSlider		slider = new GuiSlider(panel, 150, 42, 54, 1000, true, "Slider");
 

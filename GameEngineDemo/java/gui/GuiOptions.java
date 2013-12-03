@@ -8,7 +8,6 @@ import main.GameDemo.GameModes;
 import src.AnimPanel;
 import src.gui.Gui;
 import src.gui.GuiButton;
-import src.gui.GuiButtonMultiSelect;
 import src.gui.GuiButtonToggle;
 import src.gui.GuiComponent;
 import src.gui.GuiSlider;
@@ -19,7 +18,7 @@ public class GuiOptions extends Gui
 	
 	private GuiButtonToggle debug      = new GuiButtonToggle(panel, 200, 22, "Debug Screen: Off", "Debug Screen: On", true);
 	
-	private GuiButtonMultiSelect gamemode = new GuiButtonMultiSelect(panel, 200, 25, "Game Mode: ", demo.getGameMode(), demo.getGameModes());
+	private GuiButton gamemode = new GuiButton(panel, 200, 25, "Game Mode: " + demo.getGameMode());
 	
 	private GuiSlider 		brightness = new GuiSlider(panel, 200, 38, 0, 100, true, "Brightness");
 	private GuiButton 		back       = new GuiButton(panel, 200, 22, "Back");
@@ -79,10 +78,12 @@ public class GuiOptions extends Gui
 			demo.getGuiHandler().setDebugState(debug.getState());
 		}
 		else if(gamemode.checkMouse()) {
+						
+			if(demo.getGameMode().ordinal() < GameModes.values().length - 1) demo.setGameMode(GameModes.values()[demo.getGameMode().ordinal()  + 1]);
+			else demo.setGameMode(GameModes.values()[0]);
+			// Set the new "Enum"
 			
-			gamemode.moveOn();
-			
-			demo.setGameMode((GameModes) gamemode.getState());
+			gamemode.setLabel("Game Mode: " + demo.getGameMode());	
 		}
 		else if(back.checkMouse()) demo.getGuiHandler().previousGui();
 	}

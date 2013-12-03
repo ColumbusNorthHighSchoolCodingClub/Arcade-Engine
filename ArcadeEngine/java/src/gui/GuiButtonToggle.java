@@ -3,6 +3,7 @@ package src.gui;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 
 import src.AnimPanel;
@@ -98,6 +99,8 @@ public class GuiButtonToggle extends GuiButton
 		Font font = new Font("Arial", Font.BOLD, 14);
 		Font old = g.getFont();
 		g.setFont(font);
+		
+		page.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
 		Rectangle2D rect = page.getFontMetrics().getStringBounds(label, page);
 		

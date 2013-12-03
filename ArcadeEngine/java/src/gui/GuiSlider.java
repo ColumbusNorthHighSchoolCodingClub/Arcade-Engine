@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 
 import src.AnimPanel;
@@ -141,6 +142,8 @@ public class GuiSlider extends GuiComponent
 		Font font = new Font("Arial", Font.BOLD, 14);
 		Font old = g.getFont();
 		g.setFont(font);
+		
+		page.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
 		String str = label + ": " + value;
 		

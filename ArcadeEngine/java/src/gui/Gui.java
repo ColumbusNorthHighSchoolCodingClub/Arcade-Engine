@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 
 import src.AnimPanel;
@@ -153,6 +154,8 @@ public abstract class Gui implements GuiInterface
 		
 		Font font = new Font("Arial", 3, 65);
 		
+		page.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		
 		g.setFont(font);
 		
 		Rectangle2D rect = page.getFontMetrics().getStringBounds(getTitle(), page);
@@ -180,10 +183,14 @@ public abstract class Gui implements GuiInterface
 	
 	protected void drawString(String str, Font font, Color color, int x, int y, Graphics g) {
 		
+		Graphics2D page = (Graphics2D) g;
+		
 		int shad = 1;
 		
 		Font old = g.getFont();
 		g.setFont(font);
+		
+		page.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
 		g.setColor(Color.black);
 		g.drawString(str, x, y);

@@ -4,6 +4,8 @@ package gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 
 import main.ArcadeDemo;
@@ -30,14 +32,17 @@ public class GuiDebug extends Gui
 	@Override
 	public void drawGui(Graphics g)
 	{
+		Graphics2D page = (Graphics2D) g;
+		
 		int height = -4;
 		int spacing = -2;
 		
-		final Font font = new Font("Franklin Gothic Medium", Font.BOLD, 13);
+		final Font font = new Font("Arial", Font.BOLD, 13);
 		
 		for(String str : debug)
 		{
 			g.setFont(font);
+			page.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 			
 			Rectangle2D rect = g.getFontMetrics().getStringBounds(str, g);
 			

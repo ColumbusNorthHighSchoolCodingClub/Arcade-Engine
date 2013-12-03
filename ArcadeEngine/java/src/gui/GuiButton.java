@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 
 import src.AnimPanel;
@@ -63,6 +64,8 @@ public class GuiButton extends GuiComponent
 		// Draws the Button to be clicked upon.
 		Graphics2D page = (Graphics2D) g;
 		
+		page.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		
 		// The Background color of the button.
 		page.setColor(secColor);
 		page.fill(this.buttonShadow);
@@ -84,7 +87,10 @@ public class GuiButton extends GuiComponent
 		
 		Font font = new Font("Arial", Font.BOLD, 13);
 		Font old = g.getFont();
+		
 		g.setFont(font);
+		
+		page.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
 		Rectangle2D rect = page.getFontMetrics().getStringBounds(label, page);
 		

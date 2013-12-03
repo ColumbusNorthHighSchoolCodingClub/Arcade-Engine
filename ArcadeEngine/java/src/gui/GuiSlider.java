@@ -170,7 +170,6 @@ public class GuiSlider extends GuiComponent
 	{
 		Graphics2D page = (Graphics2D) g;
 		
-		
 		this.bar.setLocation(x + 4, y + 8);
 		
 		this.boxFill.setLocation(x + 2, y + 2);
@@ -232,6 +231,16 @@ public class GuiSlider extends GuiComponent
 	}
 	
 	@Override
+	public void onHover() {
+
+	}
+
+	@Override
+	public void onHoverLeave() {
+		
+	}
+	
+	@Override
 	public void onUpdate() {
 		
 		if(checkMouse() && panel.isLeftClickHeld()) {
@@ -270,4 +279,6 @@ public class GuiSlider extends GuiComponent
 		
 		return false;
 	}
+
+
 }

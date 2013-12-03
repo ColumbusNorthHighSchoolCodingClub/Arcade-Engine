@@ -10,6 +10,8 @@ public abstract class GuiComponent
 {
 	protected AnimPanel panel;
 	
+	protected Color currColor = new Color(102, 185, 204);
+	
 	protected Color primColor = new Color(102, 185, 204);
 	protected Color secColor = new Color(17, 23, 24);
 	protected Color disabledColor = new Color(60, 101, 228);
@@ -66,6 +68,13 @@ public abstract class GuiComponent
 	 * @param panel The game. (put "this" here)
 	 */
 	public abstract void draw(int x, int y, Graphics g);
+	
+	/**
+	 * Update for when the component is hovered
+	 */
+	public abstract void onHover();
+	
+	public abstract void onHoverLeave();
 	
 	/**
 	 * Updates the component every tick
@@ -150,8 +159,20 @@ public abstract class GuiComponent
 	
 	public void onUpdateDefault(Point mouse) {
 	
-		if(this.checkMouse()) this.setHovered(true);
-		else this.setHovered(false);
+		if(this.checkMouse()) {
+			if(this.hovered != true) {
+				
+				this.onHover();
+				this.setHovered(true);
+			}
+		}
+		else {
+			if(this.hovered != false) {
+				
+				this.onHoverLeave();
+				this.setHovered(false);
+			}
+		}
 	}
 	
 	/**

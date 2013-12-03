@@ -126,9 +126,14 @@ public class GuiButton extends GuiComponent
 		this.draw(g);
 	}
 	
-	public void onUpdate() {
-		super.onUpdateDefault(this.panel.getMousePosition());
-	}
+	@Override
+	public void onUpdate() {}
+	
+	@Override
+	public void onHover() {}
+
+	@Override
+	public void onHoverLeave() {}
 	
 	/**
 	 * True if the pointer is inside of the button area.
@@ -149,6 +154,5 @@ public class GuiButton extends GuiComponent
 		}
 		
 		return false;
-	}
-	
+	}	
 }

@@ -13,8 +13,6 @@ import src.AnimPanel;
 
 public abstract class Gui implements GuiInterface
 {
-	// private Color color = new Color(123, 68, 68, 68);
-
 	protected AnimPanel panel;
 	
 	private Color bgColor = new Color(68, 68, 68, 160);
@@ -113,13 +111,13 @@ public abstract class Gui implements GuiInterface
 		
 		this.parent = par;
 	}
+	
 	/**
 	 * @return the title
 	 */
 	public String getTitle() {
 		return title;
 	}
-
 
 	/**
 	 * @param title the title to set
@@ -128,14 +126,12 @@ public abstract class Gui implements GuiInterface
 		this.title = title;
 	}
 
-
 	/**
 	 * @return the titleColor
 	 */
 	public Color getTitleColor() {
 		return titleColor;
 	}
-
 
 	/**
 	 * @param titleColor the titleColor to set
@@ -144,7 +140,6 @@ public abstract class Gui implements GuiInterface
 		this.titleColor = titleColor;
 	}
 	
-
 
 	/**
 	 * Draws the title text of the GUi.
@@ -205,7 +200,6 @@ public abstract class Gui implements GuiInterface
 		g.setFont(old);	
 	}
 	
-
 	/**
 	 * Draws the buttons that aren't given coordinates at given point.
 	 * 
@@ -259,10 +253,9 @@ public abstract class Gui implements GuiInterface
 	 */
 	protected void updateComponents(GuiComponent[] comps)
 	{
-		for(GuiComponent b : comps)
-		{
-			if(b.checkMouse()) b.setHovered(true);
-			else b.setHovered(false);
+		for(GuiComponent b : comps) {
+			b.onUpdateDefault(panel.getMousePosition());
+			b.onUpdate();
 		}
 	}
 	
@@ -273,8 +266,10 @@ public abstract class Gui implements GuiInterface
 	 */
 	protected void updateComponents()
 	{
-		for(GuiComponent b : components)
+		for(GuiComponent b : components) {
+			b.onUpdateDefault(panel.getMousePosition());
 			b.onUpdate();
+		}
 	}
 }
 

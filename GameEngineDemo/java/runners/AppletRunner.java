@@ -17,7 +17,7 @@ import src.AnimPanel;
  * @author David Baker
  * @version 5-23-2013
  */
-
+@SuppressWarnings("serial")
 public class AppletRunner extends Applet
 {
 	AnimPanel world = new GameDemo();

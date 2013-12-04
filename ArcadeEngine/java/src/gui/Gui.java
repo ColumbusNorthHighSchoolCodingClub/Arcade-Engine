@@ -23,6 +23,9 @@ public abstract class Gui implements GuiInterface
 	/** The title for each GUI screen **/
 	private String title = "Arcade Engine";
 	
+	/** The font the title will be displayed with */
+	private Font titleFont = new Font("Arial", 3, 65);
+	
 	/** Color of the title */
 	private Color titleColor = Color.BLUE;
 	
@@ -128,6 +131,22 @@ public abstract class Gui implements GuiInterface
 	}
 
 	/**
+	 * @return the titleFont
+	 */
+	public Font getTitleFont() {
+		return titleFont;
+	}
+
+
+	/**
+	 * @param titleFont the titleFont to set
+	 */
+	public void setTitleFont(Font titleFont) {
+		this.titleFont = titleFont;
+	}
+
+
+	/**
 	 * @return the titleColor
 	 */
 	public Color getTitleColor() {
@@ -152,15 +171,13 @@ public abstract class Gui implements GuiInterface
 	{
 		Graphics2D page = (Graphics2D) g;
 		
-		Font font = new Font("Arial", 3, 65);
-		
 		page.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
-		g.setFont(font);
+		g.setFont(getTitleFont());
 		
 		Rectangle2D rect = page.getFontMetrics().getStringBounds(getTitle(), page);
 		
-		this.drawString(this.getTitle(), font, this.getTitleColor(),  ((width / 2) - ((int) rect.getWidth() / 2)) + 2, titleY + 2, page);
+		this.drawString(this.getTitle(), getTitleFont(), this.getTitleColor(),  ((width / 2) - ((int) rect.getWidth() / 2)) + 2, titleY + 2, page);
 	}
 	
 	/**

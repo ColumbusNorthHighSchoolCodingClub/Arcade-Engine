@@ -65,6 +65,7 @@ public class GuiDebug extends Gui
 		debug = new String[]
 		{
 			"FPS: " + demo.getFPS(),
+			"Frame Number: " + demo.getFrameNumber(),
 			addBreak,
 			"Mouse X: " + demo.getMousePosition().x,
 			"Mouse Y: " + demo.getMousePosition().y,

@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -20,8 +21,9 @@ public class GuiMainMenu extends Gui
 	
 	private GuiButton start = 	  new GuiButton(demo, 200, 22, "Start Demo!"),
 					  options =	  new GuiButton(demo, 200, 22, "Options"),
-					  exit =	  new GuiButton(demo,200, 22, "Exit"),
-					  easterEgg = new GuiButtonToggle(demo, 30, 698, 20, 20, "EE", "EE", false);
+					  exit =	  new GuiButton(demo,200, 22, "Exit");
+					 
+	private GuiButtonToggle easterEgg = new GuiButtonToggle(demo, 30, 698, 20, 20, "EE", "EE", false);
 	
 	
 	public GuiMainMenu(AnimPanel panel)
@@ -29,6 +31,7 @@ public class GuiMainMenu extends Gui
 		super(panel);
 		
 		this.setTitle("Arcade Engine");
+		this.setTitleFont(new Font("Century Gothic", 3, 60));
 		this.setTitleColor(Color.GRAY);
 		
 		this.setBGImage(demo.getCurrentBG());
@@ -48,11 +51,9 @@ public class GuiMainMenu extends Gui
 		// Draw the title screen
 		drawTitle(g, demo.getWidth());
 		
-		if(((GuiButtonToggle) easterEgg).getState())
+		if(easterEgg.getState())
 		{
-			int x = 0;
-			
-			int y = 0;
+			int x = 0, y = 0;
 			
 			boolean cont = true;
 			
@@ -77,7 +78,6 @@ public class GuiMainMenu extends Gui
 		
 		// GUI Elements-------------------------------
 		
-		
 		// Draws the buttons, LAST!
 		drawComponents(g, demo.getWidth() / 2 - 200 / 2, 210);
 	}
@@ -85,6 +85,13 @@ public class GuiMainMenu extends Gui
 	@Override
 	public void updateGui()
 	{
+		Color temp = new Color(68, 68, 68, 160);
+		
+		if(start.checkMouse()) temp = 		 new Color(12, 144, 44, 160);
+		else if(options.checkMouse()) temp = new Color(44, 12, 144, 160);
+		else if(exit.checkMouse()) temp = 	 new Color(144, 12, 44, 160);
+		
+		if(this.getBGColor() != temp)  this.setBGColor(temp);
 		// Update the button to see if it is hovered or not.
 		updateComponents();
 	}
@@ -106,7 +113,7 @@ public class GuiMainMenu extends Gui
 		}
 		else if(easterEgg.checkMouse())
 		{
-			((GuiButtonToggle) easterEgg).invertState();
+			easterEgg.invertState();
 		}
 	}
 }

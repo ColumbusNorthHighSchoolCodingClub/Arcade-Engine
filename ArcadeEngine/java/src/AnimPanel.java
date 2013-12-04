@@ -166,6 +166,9 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 	public void paintComponent(Graphics g)
 	{
 		frameNumber++;
+		
+		if(frameNumber >= 20000) frameNumber = 0;
+		
 		this.requestFocusInWindow();
 		
 		g.setColor(Color.white);

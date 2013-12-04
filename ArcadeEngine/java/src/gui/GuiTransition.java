@@ -22,6 +22,8 @@ public class GuiTransition extends Gui
 		
 		this.current = current;
 		this.next = next;
+		
+		this.setTitleFont(null);
 	}
 	
 	public void updateGui()

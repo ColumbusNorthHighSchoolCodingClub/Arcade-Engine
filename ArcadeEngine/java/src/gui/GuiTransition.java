@@ -9,7 +9,7 @@ public class GuiTransition extends Gui
 {
 	private Gui current, next;
 	
-	private int currX = 0, transspeed = 28;
+	private double currX = 0, transspeed = 28;
 	
 	private boolean forward = true;
 	
@@ -30,8 +30,8 @@ public class GuiTransition extends Gui
 		else if(!current.getParent().equals(next)) this.forward = true;
 		else this.forward = false;
 		
-		if(forward) currX -= transspeed * (panel.getWidth() / 500);
-		else currX += transspeed * (panel.getWidth() / 500);
+		if(forward) currX -= transspeed * (((double) panel.getWidth()) / 500D);
+		else currX += transspeed * (((double) panel.getWidth()) / 500D);
 		
 		this.current.updateGui();
 		this.next.updateGui();
@@ -49,13 +49,13 @@ public class GuiTransition extends Gui
 	{
 		if(currX <= panel.getWidth())
 		{
-			g.translate(currX, 0);
+			g.translate((int) currX, 0);
 			current.drawGui(g);
 			
 			g.translate(-panel.getWidth(), 0);
 			next.drawGui(g);
 			
-			g.translate(panel.getWidth() - currX, 0);
+			g.translate(panel.getWidth() - (int) currX, 0);
 		}
 		else
 		{
@@ -70,13 +70,13 @@ public class GuiTransition extends Gui
 	{
 		if(currX >= -panel.getWidth())
 		{
-			g.translate(currX, 0);
+			g.translate((int) currX, 0);
 			current.drawGui(g);
 			
 			g.translate(panel.getWidth(), 0);
 			next.drawGui(g);
 			
-			g.translate(-panel.getWidth() - currX, 0);
+			g.translate(-panel.getWidth() - (int) currX, 0);
 		}
 		else
 		{

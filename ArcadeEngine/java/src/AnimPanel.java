@@ -219,11 +219,11 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 		if(e.getButton() == MouseEvent.BUTTON1) 
 			if(leftClickHeld != true) leftClickHeld = true;
 		
-		else if(e.getButton() == MouseEvent.BUTTON3) 
-				if(rightClickHeld != true) rightClickHeld = true;
-		
-		else if(e.getButton() == MouseEvent.BUTTON2) 
+		if(e.getButton() == MouseEvent.BUTTON2) 
 			if(middleClickHeld != true) middleClickHeld = true;
+		
+		if(e.getButton() == MouseEvent.BUTTON3) 
+			if(rightClickHeld != true) rightClickHeld = true;
 	}
 	
 	@Override
@@ -231,12 +231,11 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 		if(e.getButton() == MouseEvent.BUTTON1) 
 			if(leftClickHeld != false) leftClickHeld = false;
 		
-		else if(e.getButton() == MouseEvent.BUTTON2) 
+		if(e.getButton() == MouseEvent.BUTTON2) 
 			if(middleClickHeld != false) middleClickHeld = false;
-		
-		else if(e.getButton() == MouseEvent.BUTTON3) 
+	
+		if(e.getButton() == MouseEvent.BUTTON3) 
 			if(rightClickHeld != false) rightClickHeld = false;
-		
 	}
 	
 	@Override

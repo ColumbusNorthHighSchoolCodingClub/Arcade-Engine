@@ -79,12 +79,12 @@ public abstract class GuiComponent
 	/**
 	 * Updates the component every tick
 	 */
-	public abstract void onUpdate();
+	public abstract void update();
 	
 	/**
 	 * Returns true if the mouse is on the component.
 	 */
-	public abstract boolean checkMouse();
+	public abstract boolean isHovered();
 	
 	public int getHeight()
 	{
@@ -159,7 +159,7 @@ public abstract class GuiComponent
 	
 	public void onUpdateDefault(Point mouse) {
 	
-		if(this.checkMouse()) {
+		if(this.isHovered()) {
 			if(this.hovered != true) {
 				
 				this.onHover();

@@ -49,6 +49,16 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 	
 	public abstract Graphics renderFrame(Graphics g);
 	
+	protected void drawGui(Graphics g) {
+		if(this.guiHandler != null)
+			this.guiHandler.drawGui(g);
+	}
+	
+	protected void updateGui() {
+		if(this.guiHandler != null)
+			this.guiHandler.updateGui();
+	}
+	
 	public abstract void process();
 	
 	public abstract void initRes(); 
@@ -93,13 +103,11 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 	}
 	
 	// Getters
-	public GuiHandler getGuiHandler()
-	{
+	public GuiHandler getGuiHandler() {
 		return guiHandler;
 	}
 	
-	public KeyBindingHandler getKeyBoardHandler()
-	{
+	public KeyBindingHandler getKeyBoardHandler() {
 		return kbHandler;
 	}
 	
@@ -132,39 +140,32 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 		else fpsLoop++;
 	}
 	
-	public void setTimerDelay(int delay)
-	{
+	public void setTimerDelay(int delay) {
 		this.timerDelay = delay;
 	}
 	
 	public int getTimerDelay() {
-		
 		return timerDelay;
 	}
 	
-	public int getFPS()
-	{
+	public int getFPS() {
 		return FPS;
 	}
 	
 	public int getFrameNumber() {
-		
 		return frameNumber;
 	}
 	
-	public boolean isPaused()
-	{
+	public boolean isPaused() {
 		return paused;
 	}
 	
-	public void setPauseState(boolean state)
-	{
+	public void setPauseState(boolean state) {
 		paused = state;
 	}
 	
 	
-	public void paintComponent(Graphics g)
-	{
+	public void paintComponent(Graphics g) {
 		frameNumber++;
 		
 		if(frameNumber >= 20000) frameNumber = 0;
@@ -179,26 +180,20 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 	
 	
 	@Override
-	public Point getMousePosition()
-	{
-		try
-		{
+	public Point getMousePosition() {
+		
+		try {
 			Point temp = new Point(super.getMousePosition().x + 1 - 1, super.getMousePosition().y + 1 - 1);
 				
 			lastMouseCoord = temp;
 			return super.getMousePosition();
-		
 		}
-		catch(Exception e)
-		{
-			try
-			{
+		catch(Exception e) {
+			try {
 				if(!this.lastMouseCoord.equals(null))
 					return lastMouseCoord;
-				
 			}
-			catch(NullPointerException es)
-			{
+			catch(NullPointerException es) {
 			}
 		}
 		
@@ -220,81 +215,63 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 	private boolean leftClickHeld = false, rightClickHeld = false, middleClickHeld = false;
 	
 	@Override
-	public void mousePressed(MouseEvent e)
-	{
-		if(e.getButton() == MouseEvent.BUTTON1) {
+	public void mousePressed(MouseEvent e) {
+		if(e.getButton() == MouseEvent.BUTTON1) 
 			if(leftClickHeld != true) leftClickHeld = true;
-		}
 		
-		else if(e.getButton() == MouseEvent.BUTTON3) {
+		else if(e.getButton() == MouseEvent.BUTTON3) 
 				if(rightClickHeld != true) rightClickHeld = true;
-		}
 		
-		else if(e.getButton() == MouseEvent.BUTTON2) {
+		else if(e.getButton() == MouseEvent.BUTTON2) 
 			if(middleClickHeld != true) middleClickHeld = true;
-		}
 	}
 	
 	@Override
-	public void mouseReleased(MouseEvent e)
-	{
-		if(e.getButton() == MouseEvent.BUTTON1) {
+	public void mouseReleased(MouseEvent e) {
+		if(e.getButton() == MouseEvent.BUTTON1) 
 			if(leftClickHeld != false) leftClickHeld = false;
-		}
 		
-		else if(e.getButton() == MouseEvent.BUTTON2) {
+		else if(e.getButton() == MouseEvent.BUTTON2) 
 			if(middleClickHeld != false) middleClickHeld = false;
-		}
 		
-		else if(e.getButton() == MouseEvent.BUTTON3) {
+		else if(e.getButton() == MouseEvent.BUTTON3) 
 			if(rightClickHeld != false) rightClickHeld = false;
-		}
-	}
-	
-	@Override
-	public void mouseClicked(MouseEvent e)
-	{
-		if(e.getButton() == MouseEvent.BUTTON1) guiHandler.getGui().updateOnClick();
-	}
-	
-	public void mouseEntered(MouseEvent e)
-	{
-	}
-	
-	public void mouseExited(MouseEvent e)
-	{
-	}
-	
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-	
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent arg0) {
-
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent arg0) {
 		
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
+	public void mouseClicked(MouseEvent e) {
+		if(e.getButton() == MouseEvent.BUTTON1) 
+			if(guiHandler != null) guiHandler.getGui().updateOnClick();
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) { }
+	
+	@Override
+	public void mouseExited(MouseEvent e) { 
+		
+	}
+	
+	@Override
+	public void keyTyped(KeyEvent arg0) { }
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) { }
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) { }
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
 		String key = KeyEvent.getKeyText(e.getKeyCode());
 		
 		this.kbHandler.runBindings(key);	
 	}
 	
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
+	public void keyReleased(KeyEvent e) {
 		String key = KeyEvent.getKeyText(e.getKeyCode());
-		
 		this.kbHandler.removeKey(key);
 	}
-	
-
 }

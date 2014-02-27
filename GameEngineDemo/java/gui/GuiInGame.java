@@ -54,7 +54,7 @@ public class GuiInGame extends Gui
 	@Override
 	public void updateOnClick()
 	{
-		if(pauseToggle.checkMouse()) {
+		if(pauseToggle.isHovered()) {
 			
 			pauseToggle.invertState();
 			

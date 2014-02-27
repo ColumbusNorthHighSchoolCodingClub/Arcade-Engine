@@ -55,11 +55,11 @@ public class GuiQuit extends Gui
 	@Override
 	public void updateOnClick()
 	{
-		if(quit.checkMouse())
+		if(quit.isHovered())
 		{
 			System.out.println("*** Closing ***");
 			System.exit(0);
 		}
-		else if(back.checkMouse()) demo.getGuiHandler().previousGui();
+		else if(back.isHovered()) demo.getGuiHandler().previousGui();
 	}
 }

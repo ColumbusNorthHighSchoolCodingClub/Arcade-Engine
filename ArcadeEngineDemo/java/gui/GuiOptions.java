@@ -60,12 +60,12 @@ public class GuiOptions extends Gui
 	@Override
 	public void updateOnClick()
 	{
-		if(debug.checkMouse())
+		if(debug.isHovered())
 		{
 			((GuiButtonToggle) debug).invertState();
 			
 			demo.getGuiHandler().setDebugState(((GuiButtonToggle) debug).getState());
 		}
-		else if(back.checkMouse()) demo.getGuiHandler().previousGui();
+		else if(back.isHovered()) demo.getGuiHandler().previousGui();
 	}
 }

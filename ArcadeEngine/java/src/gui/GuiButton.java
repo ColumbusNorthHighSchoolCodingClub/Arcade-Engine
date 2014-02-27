@@ -133,7 +133,7 @@ public class GuiButton extends GuiComponent
 	}
 	
 	@Override
-	public void onUpdate() {}
+	public void update() {}
 	
 	@Override
 	public void onHover() {}
@@ -144,7 +144,7 @@ public class GuiButton extends GuiComponent
 	/**
 	 * True if the pointer is inside of the button area.
 	 */
-	public boolean checkMouse()
+	public boolean isHovered()
 	{
 		Point point = this.panel.getMousePosition();
 		

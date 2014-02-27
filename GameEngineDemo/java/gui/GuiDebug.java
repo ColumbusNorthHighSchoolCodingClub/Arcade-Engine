@@ -19,19 +19,18 @@ public class GuiDebug extends Gui
 	private String addBreak = "----------------------";
 	private String debug[];
 	
-	public GuiDebug(AnimPanel panel)
-	{
+	public GuiDebug(AnimPanel panel) {
 		super(panel);
 		
-		debug = new String[]
-		{
+		debug = new String[] {
+				
 			"Loading Debug..."
 		};
 	}
 	
 	@Override
-	public void drawGui(Graphics g)
-	{
+	public void drawGui(Graphics g) {
+		
 		Graphics2D page = (Graphics2D) g;
 		
 		int height = -4;
@@ -39,8 +38,8 @@ public class GuiDebug extends Gui
 		
 		final Font font = new Font("Arial", Font.BOLD, 13);
 		
-		for(String str : debug)
-		{
+		for(String str : debug) {
+			
 			g.setFont(font);
 			page.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 			
@@ -58,13 +57,13 @@ public class GuiDebug extends Gui
 	}
 	
 	@Override
-	public void updateGui()
-	{
+	public void updateGui() {
 
 		// All of the info to be displayed on the screen if debug is on.
-		debug = new String[]
-		{
+		debug = new String[] {
+				
 			"FPS: " + demo.getFPS(),
+			"Frame Number: " + demo.getFrameNumber(),
 			"Entity Count: " + (demo.getEntities().size() - 4),
 			addBreak,
 			"Mouse X: " + demo.getMousePosition().x,
@@ -87,8 +86,7 @@ public class GuiDebug extends Gui
 	}
 	
 	@Override
-	public void updateOnClick()
-	{
+	public void updateOnClick() {
 		
 	}
 }

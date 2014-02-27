@@ -59,7 +59,7 @@ public class GuiOptions extends Gui
 			debug.setState(demo.getGuiHandler().getDebugState());
 		
 		// reset the brightness of demo.
-		if(brightness.checkMouse() && demo.isLeftClickHeld())
+		if(brightness.isHovered() && demo.isLeftClickHeld())
 			demo.setBrightness((int) brightness.getValue());
 		else
 			brightness.setValue(demo.getBrightness());
@@ -71,13 +71,13 @@ public class GuiOptions extends Gui
 	@Override
 	public void updateOnClick()
 	{
-		if(debug.checkMouse())
+		if(debug.isHovered())
 		{
 			debug.invertState();
 			
 			demo.getGuiHandler().setDebugState(debug.getState());
 		}
-		else if(gamemode.checkMouse()) {
+		else if(gamemode.isHovered()) {
 						
 			if(demo.getGameMode().ordinal() < GameModes.values().length - 1) demo.setGameMode(GameModes.values()[demo.getGameMode().ordinal()  + 1]);
 			else demo.setGameMode(GameModes.values()[0]);
@@ -85,6 +85,6 @@ public class GuiOptions extends Gui
 			
 			gamemode.setLabel("Game Mode: " + demo.getGameMode());	
 		}
-		else if(back.checkMouse()) demo.getGuiHandler().previousGui();
+		else if(back.isHovered()) demo.getGuiHandler().previousGui();
 	}
 }

@@ -22,8 +22,7 @@ public abstract class GamePanel extends AnimPanel {
 	 * @param height The height (in pixels) of the AnimPanel.
 	 */
 	@Override
-	public void createInstance(String name, int width, int height)
-	{
+	public void createInstance(String name, int width, int height) {
 		super.createInstance(name, width, height);
 		
 		this.entities = new ArrayList<Entity>();
@@ -32,10 +31,8 @@ public abstract class GamePanel extends AnimPanel {
 	@Override
 	public Graphics renderFrame(Graphics g) {
 
-		if(entities != null) for(Entity ent : entities) {
-			
+		if(entities != null) for(Entity ent : entities) 
 			ent.draw(g);
-		}
 		
 		return g;
 	}
@@ -46,9 +43,7 @@ public abstract class GamePanel extends AnimPanel {
 
 		if(entities != null) for(Entity ent : entities) {
 			
-			
 			ArrayList<Entity> temps = (ArrayList<Entity>) entities.clone();
-			
 			temps.remove(ent);
 		
 			ent.moveWithVelocity(temps);
@@ -56,18 +51,15 @@ public abstract class GamePanel extends AnimPanel {
 	}
 
 	public ArrayList<Entity> getEntities() {
-		
 		return this.entities;
 	}
 	
 	public void addEntity(Entity entity) {
-		
 		if(entity != null && !(entities.contains(entity))) 
 			this.entities.add(entity);
 	}
 
 	public void removeEntity(Entity entity) {
-		
 		if(this.entities.contains(entity))
 			entities.remove(entity);
 	}

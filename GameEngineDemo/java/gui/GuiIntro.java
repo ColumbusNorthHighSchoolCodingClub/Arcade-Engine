@@ -52,7 +52,7 @@ public class GuiIntro extends Gui {
 	@Override
 	public void updateOnClick() {
 
-		if(cont.checkMouse()) demo.getGuiHandler().switchGui(new GuiInGame(demo));
+		if(cont.isHovered()) demo.getGuiHandler().switchGui(new GuiInGame(demo));
 		
 	}
 }

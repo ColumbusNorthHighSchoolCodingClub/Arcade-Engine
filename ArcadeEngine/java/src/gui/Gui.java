@@ -137,14 +137,12 @@ public abstract class Gui implements GuiInterface
 		return titleFont;
 	}
 
-
 	/**
 	 * @param titleFont the titleFont to set
 	 */
 	public void setTitleFont(Font titleFont) {
 		this.titleFont = titleFont;
 	}
-
 
 	/**
 	 * @return the titleColor
@@ -257,17 +255,7 @@ public abstract class Gui implements GuiInterface
 	 */
 	protected void drawComponents(Graphics g, int x, int y)
 	{
-		int height = 0;
-		int spacing = 4;
-		
-		for(GuiComponent b : components)
-			if(b.autoplaced == false) b.draw(g);
-			else
-			{
-				b.draw(x, y + height, g);
-				
-				height += b.getHeight() + spacing;
-			}
+		this.drawComponents(g, components, x, y);
 	}
 	
 	/**
@@ -279,7 +267,7 @@ public abstract class Gui implements GuiInterface
 	{
 		for(GuiComponent b : comps) {
 			b.onUpdateDefault(panel.getMousePosition());
-			b.onUpdate();
+			b.update();
 		}
 	}
 	
@@ -290,10 +278,7 @@ public abstract class Gui implements GuiInterface
 	 */
 	protected void updateComponents()
 	{
-		for(GuiComponent b : components) {
-			b.onUpdateDefault(panel.getMousePosition());
-			b.onUpdate();
-		}
+		this.updateComponents(components);
 	}
 }
 

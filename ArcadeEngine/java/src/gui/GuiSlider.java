@@ -16,15 +16,14 @@ import src.ResUtil;
 public class GuiSlider extends GuiComponent
 {
 	private Image handleImage = ResUtil.loadImage("sliderHandle.png", this.getClass());
-	private Rectangle handle = new Rectangle(handleImage.getWidth(null), handleImage.getHeight(null));
+	private Rectangle handle = new Rectangle(handleImage.getWidth(null), handleImage.getHeight(null)),
+					  boxOutline,
+					  boxFill,
+					  bar;
 	
-	private Rectangle boxOutline;
-	private Rectangle boxFill;
-	private Rectangle bar;
-	
-	private double scale;
-	private double valueLimit = 10;
-	private double value;
+	private double scale,
+				   valueLimit = 10,
+				   value;
 	
 	private boolean snap = true;
 	
@@ -244,9 +243,9 @@ public class GuiSlider extends GuiComponent
 	}
 	
 	@Override
-	public void onUpdate() {
+	public void update() {
 		
-		if(checkMouse() && panel.isLeftClickHeld()) {
+		if(isHovered() && panel.isLeftClickHeld()) {
 			
 			Point point = this.panel.getMousePosition() ;
 			
@@ -265,7 +264,7 @@ public class GuiSlider extends GuiComponent
 	}
 	
 	@Override
-	public boolean checkMouse()
+	public boolean isHovered()
 	{
 		Point point = this.panel.getMousePosition();
 		Rectangle mouse;

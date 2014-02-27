@@ -53,10 +53,10 @@ public class GuiPaused extends Gui
 	@Override
 	public void updateOnClick()
 	{
-		if(resume.checkMouse()) demo.getGuiHandler().previousGui();
-		else if(options.checkMouse()) demo.getGuiHandler().switchGui(new GuiOptions(this.panel));
-		else if(mainmenu.checkMouse()) demo.getGuiHandler().switchGui(new GuiMainMenu(this.panel));
-		else if(exit.checkMouse()) demo.getGuiHandler().switchGui(new GuiQuit(this.panel));
+		if(resume.isHovered()) demo.getGuiHandler().previousGui();
+		else if(options.isHovered()) demo.getGuiHandler().switchGui(new GuiOptions(this.panel));
+		else if(mainmenu.isHovered()) demo.getGuiHandler().switchGui(new GuiMainMenu(this.panel));
+		else if(exit.isHovered()) demo.getGuiHandler().switchGui(new GuiQuit(this.panel));
 		
 	}
 }

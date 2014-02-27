@@ -110,7 +110,7 @@ public class GuiInGame extends Gui
 	@Override
 	public void updateOnClick()
 	{
-		if(colorChanger.checkMouse())
+		if(colorChanger.isHovered())
 		{
 			if(bgColor.ordinal() < BgColor.values().length - 1) bgColor = BgColor.values()[bgColor.ordinal() + 1];
 			else bgColor = BgColor.values()[0];
@@ -120,7 +120,7 @@ public class GuiInGame extends Gui
 			colorChanger.setLabel("BG Color: " + bgColor.getName());
 		}
 		
-		else if(imageSwitch.checkMouse())
+		else if(imageSwitch.isHovered())
 		{
 			// Need to invert the Button's Local state
 			imageSwitch.invertState();
@@ -128,7 +128,7 @@ public class GuiInGame extends Gui
 			if(imageSwitch.getState()) demo.setCurrentBG(bg1);
 			else demo.setCurrentBG(bg2);
 		}
-		else if(sliderSwitch.checkMouse())
+		else if(sliderSwitch.isHovered())
 		{
 			// Need to invert the Button's Local state
 			sliderSwitch.invertState();

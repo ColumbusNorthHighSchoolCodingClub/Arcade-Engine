@@ -7,6 +7,7 @@ import gui.GuiPaused;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 import src.Entity;
 import src.GamePanel;
@@ -29,24 +30,27 @@ public class GameDemo extends GamePanel
 	}
 	
 	private GameModes mode = GameModes.NORMAL;
+	private Random rand = new Random();
 	
 	private KeyBinding systemBindings = new KeyBinding(GameDemo.this)
 	{
 		@Override
 		public void singleBinding(String key)
 		{
-			// F3
-			if(key.equals("F3")) GameDemo.this.getGuiHandler().invertDebugState();
+			if(GameDemo.this.getGuiHandler() != null) {
+				// F3
+				if(key.equals("F3")) GameDemo.this.getGuiHandler().invertDebugState();
+				
+				// Escape
+				else if(key.equals("Escape")) {
 			
-			// Escape
-			else if(key.equals("Escape"))
-			{
-				if(GameDemo.this.getGuiHandler().getGui() instanceof GuiInGame) GameDemo.this.getGuiHandler().switchGui(new GuiPaused(GameDemo.this));
-				else if(GameDemo.this.getGuiHandler().getGui() instanceof GuiPaused) GameDemo.this.getGuiHandler().previousGui();
+					if(GameDemo.this.getGuiHandler().getGui() instanceof GuiInGame) GameDemo.this.getGuiHandler().switchGui(new GuiPaused(GameDemo.this));
+					else if(GameDemo.this.getGuiHandler().getGui() instanceof GuiPaused) GameDemo.this.getGuiHandler().previousGui();
+				}
 			}
 			
 			else if(key.equals("Q"))
-				GameDemo.this.addEntity(new ExampleEntity(GameDemo.this, GameDemo.this.getMousePosition().x - 10, GameDemo.this.getMousePosition().y - 10, 20, 20));
+				GameDemo.this.addEntity(new ExampleEntity(GameDemo.this, GameDemo.this.getMousePosition().x - 10, GameDemo.this.getMousePosition().y - 10, rand.nextInt(61) + 20, rand.nextInt(61) + 20));
 			
 			else if(key.equals("W")) {
 				GameDemo.this.getEntities().clear();
@@ -71,15 +75,21 @@ public class GameDemo extends GamePanel
 		
 		this.getKeyBoardHandler().addBindings(((GameDemo) this).systemBindings);
 		
+		
+	 	//Un-Comment These Lines to Activate The Gui System
+		/*	    
 		this.createGuiHandler(new GuiMainMenu(this));
-		this.getGuiHandler().addDebug(new GuiDebug(this));
-		this.getGuiHandler().setDebugState(true);
+	    this.getGuiHandler().addDebug(new GuiDebug(this));
+	    this.getGuiHandler().setDebugState(true);
+	    */
 		
-		
-		this.addEntity(new Wall(this, 0, 0, 5, 700));
-		this.addEntity(new Wall(this, 595, 0, 5, 700));
-		this.addEntity(new Wall(this, 5, 0, 590, 5));
-		this.addEntity(new Wall(this, 5, 695, 590, 5));
+	 	//Un-Comment These Lines To Add Walls Around the Window
+		/*	   
+	    this.addEntity(new Wall(this, 0, 0, 5, 700));
+	    this.addEntity(new Wall(this, 595, 0, 5, 700));
+	  	this.addEntity(new Wall(this, 5, 0, 590, 5));
+	  	this.addEntity(new Wall(this, 5, 695, 590, 5));
+	  	*/
 	}
 	
 	@Override
@@ -101,29 +111,26 @@ public class GameDemo extends GamePanel
 	 * Only graphical processes are run through here.
 	 */
 	@Override
-	public Graphics renderFrame(Graphics g)
-	{
+	public Graphics renderFrame(Graphics g) {
 		super.calculateRenderFPS();
 
-		//g.drawImage(this.guihandler.getCurrentGui().getBG(), 0, 0, null);
-		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 			
+		//Draws the entities velocity.
 		for(Entity ent: entities)
 			ent.drawDrag(g);
 		
-		
+		//This renders all of the entities.
 		super.renderFrame(g);
 		
-		if(!this.isPaused())
-		{
-			
+		if(!this.isPaused()) {
 		}
 		
 		// --------------------GUI--------------------
-		guiHandler.drawGui(g);
+		this.drawGui(g);
 		
+		//Makes the screen more white depending on the brightness.
 		g.setColor(new Color(255, 255, 255, brightness));
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
@@ -134,49 +141,38 @@ public class GameDemo extends GamePanel
 	 * Non-graphical processes are done through here.
 	 */
 	@Override
-	public void process()
-	{
+	public void process() {
 		// Makes sure the game pauses if the GUI isn't GuiInGame
 		if(!this.isPaused())
-		{
 			super.process();
-		}
 		
-		guiHandler.updateGui();
+		this.updateGui();
 	}
 	
 	public GameModes[] getGameModes() {
-		
 		return GameModes.values();
 	}
 	
 	/**
 	 * The current GameMode Enum.
 	 */
-	public GameModes getGameMode()
-	{
+	public GameModes getGameMode() {
 		return mode;
 	}
 	
 	/**
 	 * Sets the current GameMode Enum.
 	 */
-	public void setGameMode(GameModes gm)
-	{
+	public void setGameMode(GameModes gm) {
 		this.mode = gm;
 	}
 	
-	public int getBrightness()
-	{
+	public int getBrightness() {
 		return this.brightness;
 	}
 	
-	public void setBrightness(int brightness)
-	{
+	public void setBrightness(int brightness) {
 		this.brightness = brightness;
 	}
-	
-	
-	
 	
 }

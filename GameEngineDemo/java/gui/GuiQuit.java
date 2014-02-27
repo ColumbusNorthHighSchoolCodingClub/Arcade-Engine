@@ -56,11 +56,11 @@ public class GuiQuit extends Gui
 	{
 		GameDemo demo = (GameDemo) panel;
 		
-		if(quit.checkMouse())
+		if(quit.isHovered())
 		{
 			System.out.println("*** Closing ***");
 			System.exit(0);
 		}
-		else if(back.checkMouse()) demo.getGuiHandler().previousGui();
+		else if(back.isHovered()) demo.getGuiHandler().previousGui();
 	}
 }

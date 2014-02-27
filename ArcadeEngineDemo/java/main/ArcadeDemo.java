@@ -11,6 +11,7 @@ import java.awt.Image;
 import src.AnimPanel;
 import src.KeyBinding;
 import src.ResUtil;
+import src.gui.GuiHandler;
 
 /**
  * Demo showing uses of AnimPanel class.
@@ -21,23 +22,31 @@ import src.ResUtil;
 @SuppressWarnings("serial")
 public class ArcadeDemo extends AnimPanel
 {
-	private static Image currentBG = ResUtil.loadImage("bg1.png", ArcadeDemo.class);
+	private Image currentBG; 
 
 	private KeyBinding systemBindings = new KeyBinding(this)
 	{
 		@Override
 		public void singleBinding(String key)
 		{
-			// F3
-			if(key.equals("F3")) ArcadeDemo.this.getGuiHandler().invertDebugState();
+			GuiHandler gui = ArcadeDemo.this.getGuiHandler();
 			
-			// Escape
-			else if(key.equals("Escape"))
-			{
-				if(ArcadeDemo.this.getGuiHandler().getGui() instanceof GuiInGame) ArcadeDemo.this.getGuiHandler().switchGui(new GuiPaused(ArcadeDemo.this));
-				else if(ArcadeDemo.this.getGuiHandler().getGui() instanceof GuiPaused) ArcadeDemo.this.getGuiHandler().previousGui();
+			//If we don't have a GuiHandler, then disable these bindings!
+			if(gui != null) {
+			
+				// F3
+				if(key.equals("F3")) ArcadeDemo.this.getGuiHandler().invertDebugState();
+				
+				// Escape
+				else if(key.equals("Escape")) {
+					 
+					if(gui.getGui() instanceof GuiInGame) 
+						gui.switchGui(new GuiPaused(ArcadeDemo.this));
+						
+					else if(gui.getGui() instanceof GuiPaused) 
+						gui.previousGui();
+				}
 			}
-			
 		}
 	};
 	
@@ -51,13 +60,18 @@ public class ArcadeDemo extends AnimPanel
 		
 		this.getKeyBoardHandler().addBindings(this.systemBindings);
 		
-		this.createGuiHandler(new GuiMainMenu(this));
-		this.getGuiHandler().addDebug(new GuiDebug(this));
-		this.getGuiHandler().setDebugState(true);
+		//Un-Comment These Lines to Activate The Gui System
+	    
+  	    this.createGuiHandler(new GuiMainMenu(this));
+	    this.getGuiHandler().addDebug(new GuiDebug(this));
+	    this.getGuiHandler().setDebugState(true);
+	    
 	}
 	
-	public void reset() {
+	@Override
+	public void initRes() {
 		
+		currentBG = ResUtil.loadImage("bg1.png", ArcadeDemo.class);
 	}
 
 	/**
@@ -70,13 +84,12 @@ public class ArcadeDemo extends AnimPanel
 
 		g.drawImage(this.getCurrentBG(), 0, 0, null);
 		
-		if(!this.isPaused())
-		{
+		if(!this.isPaused()) {
 			
 		}
 		
 		// --------------------GUI--------------------
-		guiHandler.drawGui(g);
+		this.drawGui(g);
 	
 		return g;
 	}
@@ -88,18 +101,14 @@ public class ArcadeDemo extends AnimPanel
 	public void process()
 	{
 		// Makes sure the game pauses if the GUI isn't GuiInGame
-		if(!this.isPaused())
-		{
+		if(!this.isPaused()) {
 			
 		}
 		
-		guiHandler.updateGui();
+		this.updateGui();
 	}
 
-	@Override
-	public void initRes() {
-		
-	}
+
 	
 	public Image getCurrentBG() {
 		return currentBG;

@@ -77,10 +77,11 @@ public class GameDemo extends GamePanel
 		
 		
 	 	//Un-Comment These Lines to Activate The Gui System
-			    
+		/*	    
 		this.createGuiHandler(new GuiMainMenu(this));
 	    this.getGuiHandler().addDebug(new GuiDebug(this));
 	    this.getGuiHandler().setDebugState(true);
+	    */
 	    
 		
 	 	//Un-Comment These Lines To Add Walls Around the Window

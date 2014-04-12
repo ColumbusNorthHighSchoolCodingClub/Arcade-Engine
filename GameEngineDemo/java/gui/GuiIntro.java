@@ -50,9 +50,13 @@ public class GuiIntro extends Gui {
 	}
 
 	@Override
-	public void updateOnClick() {
+	public boolean updateOnClick(int btn) {
 
-		if(cont.isHovered()) demo.getGuiHandler().switchGui(new GuiInGame(demo));
+		if(cont.isHovered()) {
+			demo.getGuiHandler().switchGui(new GuiInGame(demo));
+			return true;
+		}
 		
+		return false;
 	}
 }

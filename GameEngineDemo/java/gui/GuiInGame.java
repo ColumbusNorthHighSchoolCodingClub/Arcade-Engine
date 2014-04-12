@@ -52,13 +52,16 @@ public class GuiInGame extends Gui
 	}
 	
 	@Override
-	public void updateOnClick()
+	public boolean updateOnClick(int btn)
 	{
 		if(pauseToggle.isHovered()) {
 			
 			pauseToggle.invertState();
 			
 			demo.setPauseState(pauseToggle.getState());
+			return true;
 		}
+		
+		return false;
 	}
 }

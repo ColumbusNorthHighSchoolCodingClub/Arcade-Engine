@@ -4,6 +4,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
 
 import main.ArcadeDemo;
 import src.AnimPanel;
@@ -32,7 +33,8 @@ public class GuiInGame extends Gui
 		GREEN("Green", new Color(0, 255, 0, 100)),
 		RED("Red", new Color(255, 0, 0, 100)),
 		MAGENTA("Magenta", new Color(255, 0, 255, 100)),
-		YELLOW("Yellow", new Color(255, 255, 0, 100));
+		YELLOW("Yellow", new Color(255, 255, 0, 100)),
+		SIN("Sin Curves", Color.BLACK);
 		
 		
 		// Treat the rest below this like a class
@@ -54,7 +56,27 @@ public class GuiInGame extends Gui
 		
 		public Color getColor() {
 			
+			if(myName.equals("Sin Curves")) {
+				
+				return sinColor();
+			}
+			
 			return myColor;
+		}
+		
+		public Color sinColor() {
+			Color temp = new Color(68, 68, 68, 160);
+			
+			double r = Math.sin(Math.toRadians(System.currentTimeMillis()) / 45) * 255;
+			double g = Math.cos(Math.toRadians(System.currentTimeMillis()) / 28) * 255;
+			double b = (r + g) / 2;
+		
+			if(r < 0) r = Math.abs(r);
+			if(g < 0) g = Math.abs(g);
+			if(b < 0) b = Math.abs(b);
+			temp = new Color((int) r,(int) g,(int) b, 180);
+			
+			return temp;
 		}
 	}
 	
@@ -100,33 +122,49 @@ public class GuiInGame extends Gui
 	@Override
 	public void updateGui()
 	{
-		if(!getBGColor().equals(this.bgColor.myColor)) this.setBGColor(this.bgColor.myColor);
+		if(!getBGColor().equals(this.bgColor.myColor)) this.setBGColor(this.bgColor.getColor());
 		
-
 		// Update the button to see if it is hovered or not.
 		super.updateComponents();
 	}
 	
 	@Override
-	public void updateOnClick()
+	public boolean updateOnClick(int btn)
 	{
-		if(colorChanger.isHovered())
-		{
-			if(bgColor.ordinal() < BgColor.values().length - 1) bgColor = BgColor.values()[bgColor.ordinal() + 1];
-			else bgColor = BgColor.values()[0];
-			// Set the new "Enum"
-			this.setBGColor(this.bgColor.getColor());
+		switch(btn) {
+			case(MouseEvent.BUTTON1):
+				if(colorChanger.isHovered()) {
+					if(bgColor.ordinal() < BgColor.values().length - 1) bgColor = BgColor.values()[bgColor.ordinal() + 1];
+					else bgColor = BgColor.values()[0];
+					// Set the new "Enum"
+					this.setBGColor(this.bgColor.getColor());
+					
+					colorChanger.setLabel("BG Color: " + bgColor.getName());
+					return true;
+				}
+			break;
 			
-			colorChanger.setLabel("BG Color: " + bgColor.getName());
+			case(MouseEvent.BUTTON3):
+				if(colorChanger.isHovered()) {
+					if(bgColor.ordinal() > 0) bgColor = BgColor.values()[bgColor.ordinal() - 1];
+					else bgColor = BgColor.values()[BgColor.values().length - 1];
+					// Set the new "Enum"
+					this.setBGColor(this.bgColor.getColor());
+					
+					colorChanger.setLabel("BG Color: " + bgColor.getName());
+					return true;
+				}
+			break;
 		}
-		
-		else if(imageSwitch.isHovered())
+
+		if(imageSwitch.isHovered())
 		{
 			// Need to invert the Button's Local state
 			imageSwitch.invertState();
 			
 			if(imageSwitch.getState()) demo.setCurrentBG(bg1);
 			else demo.setCurrentBG(bg2);
+			return true;
 		}
 		else if(sliderSwitch.isHovered())
 		{
@@ -135,6 +173,9 @@ public class GuiInGame extends Gui
 			
 			slider.setEnabled(sliderSwitch.getState());
 			demo.setPauseState(!sliderSwitch.getState());
+			return true;
 		}
+		
+		return false;
 	}
 }

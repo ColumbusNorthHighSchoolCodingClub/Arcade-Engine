@@ -69,13 +69,14 @@ public class GuiOptions extends Gui
 	}
 	
 	@Override
-	public void updateOnClick()
+	public boolean updateOnClick(int btn)
 	{
 		if(debug.isHovered())
 		{
 			debug.invertState();
 			
 			demo.getGuiHandler().setDebugState(debug.getState());
+			return true;
 		}
 		else if(gamemode.isHovered()) {
 						
@@ -84,7 +85,13 @@ public class GuiOptions extends Gui
 			// Set the new "Enum"
 			
 			gamemode.setLabel("Game Mode: " + demo.getGameMode());	
+			return true;
 		}
-		else if(back.isHovered()) demo.getGuiHandler().previousGui();
+		else if(back.isHovered()) {
+			demo.getGuiHandler().previousGui();
+			return true;
+		}
+		
+		return false;
 	}
 }

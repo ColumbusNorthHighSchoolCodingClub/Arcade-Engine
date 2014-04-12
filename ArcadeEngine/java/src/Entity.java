@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.geom.Area;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,6 +21,8 @@ public abstract class Entity implements InterfaceEntity{
 	
 	protected Polygon bounds = new Polygon();
 	
+	Area test;
+	
 	public Entity(AnimPanel panel, int x, int y, int width, int height) {
 		
 		this.panel = panel;
@@ -35,6 +38,8 @@ public abstract class Entity implements InterfaceEntity{
 		bounds.addPoint(x + width, y);
 		bounds.addPoint(x + width, y + height);
 		bounds.addPoint(x, y + height);
+		
+		test = new Area(bounds);
 	}
 	
 	public Polygon getPolygon() {
@@ -215,7 +220,6 @@ public abstract class Entity implements InterfaceEntity{
 			}
 	}
 
-
 	public void drawDrag(Graphics g) {
 		
 		Polygon poly = this.getDragPolygon(vel.x, vel.y);
@@ -239,8 +243,6 @@ interface InterfaceEntity {
 	public void draw(Graphics g);
 	
 	public void think();
-
-	
 }
 
 

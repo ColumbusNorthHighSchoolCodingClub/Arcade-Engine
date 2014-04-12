@@ -13,10 +13,10 @@ public class GuiPaused extends Gui
 {
 	private GameDemo demo = (GameDemo) panel;
 	
-	private GuiButton resume  = new GuiButton(panel, 200, 22, "Resume Game!"),
-					  options = new GuiButton(panel, 200, 22, "Options"),
-					  mainmenu= new GuiButton(panel, 200, 22, "To Main Menu"),
-					  exit    = new GuiButton(panel, 200, 22, "Exit");
+	private GuiButton resume = new GuiButton(panel, 200, 22, "Resume Game!"),
+			options = new GuiButton(panel, 200, 22, "Options"),
+			mainmenu = new GuiButton(panel, 200, 22, "To Main Menu"),
+			exit = new GuiButton(panel, 200, 22, "Exit");
 	
 	public GuiPaused(AnimPanel panel)
 	{
@@ -51,12 +51,24 @@ public class GuiPaused extends Gui
 	}
 	
 	@Override
-	public void updateOnClick()
+	public boolean updateOnClick(int btn)
 	{
-		if(resume.isHovered()) demo.getGuiHandler().previousGui();
-		else if(options.isHovered()) demo.getGuiHandler().switchGui(new GuiOptions(this.panel));
-		else if(mainmenu.isHovered()) demo.getGuiHandler().switchGui(new GuiMainMenu(this.panel));
-		else if(exit.isHovered()) demo.getGuiHandler().switchGui(new GuiQuit(this.panel));
-		
+		if(resume.isHovered()){
+			demo.getGuiHandler().previousGui();
+			return true;
+		}
+		else if(options.isHovered()){
+			demo.getGuiHandler().switchGui(new GuiOptions(this.panel));
+			return true;
+		}
+		else if(mainmenu.isHovered()){
+			demo.getGuiHandler().switchGui(new GuiMainMenu(this.panel));
+			return true;
+		}
+		else if(exit.isHovered()){
+			demo.getGuiHandler().switchGui(new GuiQuit(this.panel));
+			return true;
+		}
+		return false;
 	}
 }

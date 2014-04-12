@@ -89,9 +89,9 @@ public class GuiTransition extends Gui
 	}
 	
 	// UNUSED
-	public void updateOnClick()
+	public boolean updateOnClick(int btn)
 	{
-		
+		return false;
 	}
 	
 	

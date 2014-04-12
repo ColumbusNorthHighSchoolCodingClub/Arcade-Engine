@@ -86,7 +86,8 @@ public class GuiDebug extends Gui
 	}
 	
 	@Override
-	public void updateOnClick() {
+	public boolean updateOnClick(int btn) {
 		
+		return false;
 	}
 }

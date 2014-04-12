@@ -96,9 +96,20 @@ public class GuiMainMenu extends Gui
 	public void updateGui() {
 		Color temp = new Color(68, 68, 68, 160);
 		
-		if(start.isHovered())        temp = new Color(12, 144, 44, 160);
-		else if(options.isHovered()) temp = new Color(44, 12, 144, 160);
-		else if(exit.isHovered())    temp = new Color(144, 12, 44, 160);
+		if(start.isHovered())        temp = new Color(12, 144, 44, 180);
+		else if(options.isHovered()) temp = new Color(44, 12, 144, 180);
+		else if(exit.isHovered())    temp = new Color(144, 12, 44, 180);
+		else {
+			double r = Math.sin(Math.toRadians(System.currentTimeMillis()) / 25) * 255;
+			double g = Math.cos(Math.toRadians(System.currentTimeMillis()) / 42) * 255;
+			double b = (r + g) / 2;
+	
+			if(r < 0) r = Math.abs(r);
+			if(g < 0) g = Math.abs(g);
+			if(b < 0) b = Math.abs(b);
+			
+			temp = new Color((int) r,(int) g,(int) b, 180);
+		}
 		
 		if(this.getBGColor() != temp)  this.setBGColor(temp);
 		// Update the button to see if it is hovered or not.
@@ -109,18 +120,23 @@ public class GuiMainMenu extends Gui
 	}
 	
 	@Override
-	public void updateOnClick() {
+	public boolean updateOnClick(int btn) {
 		if(start.isHovered()) {
 			demo.getGuiHandler().switchGui(new GuiInGame(this.panel));
+			return true;
 		}
 		else if(options.isHovered()) {
 			demo.getGuiHandler().switchGui(new GuiOptions(this.panel));
+			return true;
 		}
 		else if(exit.isHovered()) {
 			demo.getGuiHandler().switchGui(new GuiQuit(this.panel));
+			return true;
 		}
 		else if(easterEgg.isHovered()) {
 			easterEgg.invertState();
+			return true;
 		}
+		return false;
 	}
 }

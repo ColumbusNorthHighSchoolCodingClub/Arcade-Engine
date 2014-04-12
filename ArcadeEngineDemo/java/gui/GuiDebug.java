@@ -72,17 +72,18 @@ public class GuiDebug extends Gui
 			"Left Click Held: " + demo.isLeftClickHeld(),
 			"Middle Click Held: " + demo.isMiddleClickHeld(),
 			"Right Click Held: " + demo.isRightClickHeld(),
+			"Clicked on GUI Component: " + demo.isComponentClicked(),
 			addBreak,
 			"BG Red: " + demo.getGuiHandler().getBGColor().getRed(),
-			"BG Blue: " + demo.getGuiHandler().getBGColor().getBlue(),
 			"BG Green: " + demo.getGuiHandler().getBGColor().getGreen(),
+			"BG Blue: " + demo.getGuiHandler().getBGColor().getBlue(),
 			"BG Alpha: " + demo.getGuiHandler().getBGColor().getAlpha(),
 		};
 	}
 	
 	@Override
-	public void updateOnClick()
+	public boolean updateOnClick(int btn)
 	{
-		
+		return false;
 	}
 }

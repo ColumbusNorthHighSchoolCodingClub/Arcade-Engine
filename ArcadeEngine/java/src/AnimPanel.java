@@ -45,6 +45,8 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 	// Booleans
 	private boolean paused = true;
 	
+	private boolean componentClicked = false;
+	
 	private boolean resizable = false;
 	
 	public abstract Graphics renderFrame(Graphics g);
@@ -200,6 +202,16 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 		return new Point(-1, -1);
 	}
 	
+	public boolean isComponentClicked() {
+		
+		return this.componentClicked;
+	}
+	
+	public void setComponentClicked(boolean isClicked) {
+		
+		this.componentClicked = isClicked;
+	}
+	
 	public boolean isLeftClickHeld() {
 		return this.leftClickHeld;
 	}
@@ -240,8 +252,8 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getButton() == MouseEvent.BUTTON1) 
-			if(guiHandler != null) guiHandler.getGui().updateOnClick();
+
+		if(guiHandler != null) componentClicked = guiHandler.getGui().updateOnClick(e.getButton());
 	}
 	
 	@Override

@@ -302,7 +302,8 @@ interface GuiInterface
 	
 	/**
 	 * 
+	 * @param btn 
 	 * @param panel The game. (put "this" here)
 	 */
-	public void updateOnClick();
+	public boolean updateOnClick(int btn);
 }

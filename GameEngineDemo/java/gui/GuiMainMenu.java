@@ -96,23 +96,28 @@ public class GuiMainMenu extends Gui
 	}
 	
 	@Override
-	public void updateOnClick()
+	public boolean updateOnClick(int btn)
 	{
 		if(start.isHovered())
 		{
 			demo.getGuiHandler().switchGui(new GuiIntro(this.panel));
+			return true;
 		}
 		else if(options.isHovered())
 		{
 			demo.getGuiHandler().switchGui(new GuiOptions(this.panel));
+			return true;
 		}
 		else if(exit.isHovered())
 		{
 			demo.getGuiHandler().switchGui(new GuiQuit(this.panel));
+			return true;
 		}
 		else if(easterEgg.isHovered())
 		{
 			((GuiButtonToggle) easterEgg).invertState();
+			return true;
 		}
+		return false;
 	}
 }

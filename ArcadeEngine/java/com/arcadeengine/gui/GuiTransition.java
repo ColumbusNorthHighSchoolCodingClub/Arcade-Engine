@@ -9,16 +9,18 @@ public class GuiTransition extends Gui
 {
 	private Gui current, next;
 	
-	private double currX = 0, transspeed = 28;
+	private double currX = 0, currY = 0, transspeed = 28;
 	
-	private boolean forward = true;
+	private final TransitionType transition;
 	
-	public GuiTransition(AnimPanel panel, Gui current, Gui next)
+	public GuiTransition(AnimPanel panel, TransitionType type, Gui current, Gui next)
 	{
 		super(panel);
 		
 		this.setBGColor(next.getBGColor());
 		this.setBGImage(next.getBGImage());
+		
+		this.transition = type;
 		
 		this.current = current;
 		this.next = next;
@@ -27,13 +29,16 @@ public class GuiTransition extends Gui
 	}
 	
 	public void updateGui()
-	{
-		if(current.getParent() == (null)) this.forward = true;
-		else if(!current.getParent().equals(next)) this.forward = true;
-		else this.forward = false;
-		
-		if(forward) currX -= transspeed * (((double) panel.getWidth()) / 500D);
-		else currX += transspeed * (((double) panel.getWidth()) / 500D);
+	{		
+		if(transition.equals(TransitionType.slideLeft)) {
+			currX -= transspeed * (((double) panel.getWidth()) / 500D);
+		} else if (transition.equals(TransitionType.slideRight)) {
+			currX += transspeed * (((double) panel.getWidth()) / 500D);
+		} else if (transition.equals(TransitionType.slideUp)) {
+			
+		} else if (transition.equals(TransitionType.slideDown)) {
+			
+		}
 		
 		this.current.updateGui();
 		this.next.updateGui();
@@ -92,7 +97,6 @@ public class GuiTransition extends Gui
 	public boolean updateOnClick(int btn)
 	{
 		return false;
-	}
-	
+	}	
 	
 }

@@ -181,7 +181,7 @@ public class GuiHandler
 		
 		next.setParent(currentGui);
 		
-		this.currentGui = new GuiTransition(panel, currentGui, next);
+		this.currentGui = new GuiTransition(panel, TransitionType.slideLeft, currentGui, next);
 	}
 	
 	/**
@@ -193,6 +193,6 @@ public class GuiHandler
 	{
 		System.out.println("*** Returning to Gui: " + currentGui.getParent().getClass().getSimpleName() + " ***");
 		
-		this.currentGui = new GuiTransition(panel, currentGui, currentGui.getParent());
+		this.currentGui = new GuiTransition(panel, TransitionType.slideRight, currentGui, currentGui.getParent());
 	}
 }

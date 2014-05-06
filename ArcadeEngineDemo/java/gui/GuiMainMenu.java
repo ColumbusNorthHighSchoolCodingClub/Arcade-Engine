@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 import com.arcadeengine.AnimPanel;
 import com.arcadeengine.ResourceUtil;
@@ -11,7 +12,6 @@ import com.arcadeengine.gui.Gui;
 import com.arcadeengine.gui.GuiButton;
 import com.arcadeengine.gui.GuiButtonToggle;
 import com.arcadeengine.gui.GuiComponent;
-
 import main.ArcadeDemo;
 
 public class GuiMainMenu extends Gui
@@ -19,6 +19,8 @@ public class GuiMainMenu extends Gui
 	private ArcadeDemo demo = (ArcadeDemo) panel;
 	
 	private Image test = ResourceUtil.loadInternalImage( "gui.res", "bees.gif");
+	
+	private BufferedImage bg = ResourceUtil.loadInternalImage("gui.res", "bg.png");
 	
 	private GuiComponent[] utilButtons;
 	
@@ -61,6 +63,8 @@ public class GuiMainMenu extends Gui
 	@Override
 	public void drawGui(Graphics g)
 	{
+		drawBackground(g, 1);
+		
 		// Draw the title text
 		drawTitle(g, demo.getWidth());
 		
@@ -91,6 +95,25 @@ public class GuiMainMenu extends Gui
 		
 		//Here we are drawing our own array of buttons aswell.
 		drawComponents(g, utilButtons, demo.getWidth() - 140, 210);
+	}
+	
+	/**
+	 * Tick is used to keep track of the scrolling of the background
+	 */
+	private int tick = 0;
+	
+	/**
+	 * This is an example of a diagonally scrolling background
+	 * @param g
+	 * @param speed
+	 */
+	private void drawBackground(Graphics g, int speed) {
+		for (int i = -1; i < panel.getWidth() / bg.getWidth() + 1; i++) {
+			for (int i2 = -1; i2 < panel.getHeight() / bg.getHeight() + 1; i2++) {
+				g.drawImage(bg, i * bg.getWidth() + ((tick * speed) % bg.getWidth()), i2 * bg.getHeight() + ((tick * speed) % bg.getHeight()), panel);
+			}
+		}
+		tick++;
 	}
 	
 	@Override

@@ -4,6 +4,7 @@ import gui.GuiDebug;
 import gui.GuiInGame;
 import gui.GuiMainMenu;
 import gui.GuiPaused;
+import gui.OptionsHelper;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -23,6 +24,8 @@ import com.arcadeengine.gui.GuiHandler;
 public class ArcadeDemo extends AnimPanel
 {
 	private Image currentBG; 
+	
+	private OptionsHelper optionsHelper = new OptionsHelper();
 
 	private KeyBinding systemBindings = new KeyBinding(this)
 	{

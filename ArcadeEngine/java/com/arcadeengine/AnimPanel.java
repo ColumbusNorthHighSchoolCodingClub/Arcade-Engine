@@ -40,7 +40,6 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 	// Handlers
 	protected GuiHandler guiHandler;
 	protected KeyBindingHandler kbHandler = new KeyBindingHandler();
-	protected SettingsHandler settingsHandler = new SettingsHandler();
 	
 	// Booleans
 	private boolean paused = true;
@@ -111,13 +110,7 @@ public abstract class AnimPanel extends JPanel implements KeyListener, MouseList
 	
 	public KeyBindingHandler getKeyBoardHandler() {
 		return kbHandler;
-	}
-	
-	public SettingsHandler getSettingsHandler() {
-		
-		return settingsHandler;
-	}
-	
+	}	
 	
 	public void setResizable(boolean value) {
 		

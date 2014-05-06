@@ -19,6 +19,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import com.arcadeengine.AnimationPanel;
+
 
 public class ArcadeDemo extends AnimationPanel
 {

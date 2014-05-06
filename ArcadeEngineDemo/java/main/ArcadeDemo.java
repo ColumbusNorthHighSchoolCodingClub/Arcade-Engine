@@ -8,10 +8,10 @@ import gui.GuiPaused;
 import java.awt.Graphics;
 import java.awt.Image;
 
-import src.AnimPanel;
-import src.KeyBinding;
-import src.ResUtil;
-import src.gui.GuiHandler;
+import com.arcadeengine.AnimPanel;
+import com.arcadeengine.KeyBinding;
+import com.arcadeengine.ResourceUtil;
+import com.arcadeengine.gui.GuiHandler;
 
 /**
  * Demo showing uses of AnimPanel class.
@@ -71,7 +71,7 @@ public class ArcadeDemo extends AnimPanel
 	@Override
 	public void initRes() {
 		
-		currentBG = ResUtil.loadImage("bg1.png", ArcadeDemo.class);
+		currentBG = ResourceUtil.loadInternalImage("main.res", "bg1.png");
 	}
 
 	/**

@@ -8,9 +8,10 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 
+import com.arcadeengine.AnimPanel;
+import com.arcadeengine.gui.Gui;
+
 import main.ArcadeDemo;
-import src.AnimPanel;
-import src.gui.Gui;
 
 public class GuiDebug extends Gui
 {

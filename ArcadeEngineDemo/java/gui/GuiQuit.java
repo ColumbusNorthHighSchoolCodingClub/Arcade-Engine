@@ -3,11 +3,12 @@ package gui;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import com.arcadeengine.AnimPanel;
+import com.arcadeengine.gui.Gui;
+import com.arcadeengine.gui.GuiButton;
+import com.arcadeengine.gui.GuiComponent;
+
 import main.ArcadeDemo;
-import src.AnimPanel;
-import src.gui.Gui;
-import src.gui.GuiButton;
-import src.gui.GuiComponent;
 
 public class GuiQuit extends Gui
 {

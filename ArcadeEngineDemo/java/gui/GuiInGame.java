@@ -6,21 +6,22 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 
+import com.arcadeengine.AnimPanel;
+import com.arcadeengine.ResourceUtil;
+import com.arcadeengine.gui.Gui;
+import com.arcadeengine.gui.GuiButton;
+import com.arcadeengine.gui.GuiButtonToggle;
+import com.arcadeengine.gui.GuiComponent;
+import com.arcadeengine.gui.GuiSlider;
+
 import main.ArcadeDemo;
-import src.AnimPanel;
-import src.ResUtil;
-import src.gui.Gui;
-import src.gui.GuiButton;
-import src.gui.GuiButtonToggle;
-import src.gui.GuiComponent;
-import src.gui.GuiSlider;
 
 public class GuiInGame extends Gui
 {
 	private ArcadeDemo demo = (ArcadeDemo) panel;
 	
-	private Image bg1 = ResUtil.loadImage("bg1.png", ArcadeDemo.class);;
-	private Image bg2 = ResUtil.loadImage("bg2.png", ArcadeDemo.class);
+	private Image bg1 = ResourceUtil.loadInternalImage("main.res", "bg1.png");
+	private Image bg2 = ResourceUtil.loadInternalImage("main.res", "bg2.png");
 		
 	/**
 	 * The enum used for changing the background color of this GUI.

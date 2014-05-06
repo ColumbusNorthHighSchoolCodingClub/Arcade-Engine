@@ -5,19 +5,20 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import com.arcadeengine.AnimPanel;
+import com.arcadeengine.ResourceUtil;
+import com.arcadeengine.gui.Gui;
+import com.arcadeengine.gui.GuiButton;
+import com.arcadeengine.gui.GuiButtonToggle;
+import com.arcadeengine.gui.GuiComponent;
+
 import main.ArcadeDemo;
-import src.AnimPanel;
-import src.ResUtil;
-import src.gui.Gui;
-import src.gui.GuiButton;
-import src.gui.GuiButtonToggle;
-import src.gui.GuiComponent;
 
 public class GuiMainMenu extends Gui
 {
 	private ArcadeDemo demo = (ArcadeDemo) panel;
 	
-	private Image test = ResUtil.loadImage("bees.gif", this.getClass());
+	private Image test = ResourceUtil.loadInternalImage( "gui.res", "bees.gif");
 	
 	private GuiComponent[] utilButtons;
 	

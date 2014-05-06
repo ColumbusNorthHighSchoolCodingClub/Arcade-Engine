@@ -8,7 +8,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-import src.AnimPanel;
+import com.arcadeengine.AnimPanel;
 
 /**
  * Class ArcadeRunner Runs and animates subclasses of MotionPanel

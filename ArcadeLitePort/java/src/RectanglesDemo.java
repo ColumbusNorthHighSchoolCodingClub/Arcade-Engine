@@ -19,6 +19,8 @@ import java.awt.event.KeyEvent;
 import java.applet.AudioClip;   
 import java.util.ArrayList;
 
+import com.arcadeengine.AnimationPanel;
+
 
 public class RectanglesDemo extends AnimationPanel 
 {

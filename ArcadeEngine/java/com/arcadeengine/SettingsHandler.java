@@ -22,10 +22,25 @@ public abstract class SettingsHandler {
 	 */
 	protected Properties config = new Properties();
 
+	/**
+	 * The name of the Program
+	 */
 	private String projectName;
+	
+	/**
+	 * The name (with file extention) of the file withing the project settings dir
+	 */
 	private String settingsFileName;
+	
+	/**
+	 * File reftence to the config
+	 */
 	private File settingsFile;
 
+	/**
+	 * @param projectName The name of the program
+	 * @param fileName The name that these settings will be stored under
+	 */
 	public SettingsHandler(String projectName, String fileName) {
 		this.settingsFileName = fileName;
 		this.projectName = projectName;
@@ -33,6 +48,9 @@ public abstract class SettingsHandler {
 		loadConfig();
 	}
 
+	/**
+	 * Set default values for settings in this method by: defaults.setProperty(String key, (data type as string) data)
+	 */
 	protected abstract void setDefaults();
 
 	/**
@@ -46,12 +64,12 @@ public abstract class SettingsHandler {
 		gameSettingsDir.mkdirs();
 		try {
 			settingsFile = new File(gameSettingsDir, settingsFileName);
-			if (this.settingsFile.exists()) {
+			if (settingsFile.exists()) {
 				System.out.println("Config file found, loading...");
-				this.config.load(new FileInputStream(this.settingsFile));
+				config.load(new FileInputStream(settingsFile));
 			} else {
 				System.out.println("No config file found, creating...");
-				this.createConfig();
+				createConfig();
 			}
 		} catch (Exception ex) {
 			System.out.println("Error Loading config: " + ex.getLocalizedMessage());
@@ -59,12 +77,13 @@ public abstract class SettingsHandler {
 	}
 
 	/**
-	 * Create the config Only used to generate a new config file
+	 * Create the config 
+	 * Only used to generate a new config file
 	 */
 	protected void createConfig() {
 		try {
-			this.config.putAll(this.defaults);
-			this.config.store(new FileWriter(settingsFile), null);
+			config.putAll(defaults);
+			config.store(new FileWriter(settingsFile), null);
 		} catch (Exception ex) {
 			System.out.println("Error creating config: " + ex.getLocalizedMessage());
 		}
@@ -75,7 +94,7 @@ public abstract class SettingsHandler {
 	 */
 	protected void saveConfig() {
 		try {
-			this.config.store(new FileWriter(settingsFile), null);
+			config.store(new FileWriter(settingsFile), null);
 		} catch (Exception e) {
 			System.out.println("Error saving config: " + e.getLocalizedMessage());
 		}
@@ -130,7 +149,7 @@ public abstract class SettingsHandler {
 	 * Swaps the state of a boolean option
 	 */
 	public void toggleOption(String propertyName) {
-		setProperty(propertyName, !this.getBoolProperty(propertyName));
+		setProperty(propertyName, !getBoolProperty(propertyName));
 		saveConfig();
 	}
 

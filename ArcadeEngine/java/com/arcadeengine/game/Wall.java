@@ -1,7 +1,9 @@
-package com.arcadeengine;
+package com.arcadeengine.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
+import com.arcadeengine.AnimPanel;
 
 public class Wall extends Entity {
 

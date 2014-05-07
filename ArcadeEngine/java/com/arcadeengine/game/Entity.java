@@ -1,4 +1,4 @@
-package com.arcadeengine;
+package com.arcadeengine.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,6 +8,8 @@ import java.awt.geom.Area;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Random;
+
+import com.arcadeengine.AnimPanel;
 
 public abstract class Entity implements InterfaceEntity {
 

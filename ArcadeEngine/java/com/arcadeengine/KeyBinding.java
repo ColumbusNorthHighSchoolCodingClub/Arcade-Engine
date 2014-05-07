@@ -1,11 +1,12 @@
 package com.arcadeengine;
 
 public class KeyBinding {
+	
 	private AnimPanel panel;
 
 	public KeyBinding(AnimPanel panel) {
 
-		this.panel = panel;
+		this.setPanel(panel);
 	}
 
 	/**
@@ -23,5 +24,13 @@ public class KeyBinding {
 	 */
 	public void repeatBinding(String key) {
 
+	}
+
+	public AnimPanel getPanel() {
+		return panel;
+	}
+
+	public void setPanel(AnimPanel panel) {
+		this.panel = panel;
 	}
 }

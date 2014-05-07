@@ -1,9 +1,11 @@
-package com.arcadeengine;
+package com.arcadeengine.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+
+import com.arcadeengine.AnimPanel;
 
 public class Tile extends Entity {
 

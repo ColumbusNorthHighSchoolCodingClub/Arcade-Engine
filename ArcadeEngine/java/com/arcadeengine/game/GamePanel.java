@@ -1,7 +1,9 @@
-package com.arcadeengine;
+package com.arcadeengine.game;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+
+import com.arcadeengine.AnimPanel;
 
 /**
  * Main component for Game aspects of the Arcade Engine.

@@ -16,9 +16,10 @@ import javax.imageio.ImageIO;
  * @author Byron Zaharako
  */
 public abstract class ResourceUtil {
-	
+
 	/**
 	 * Get a BufferedImage from an image within the classpath
+	 * 
 	 * @param packageName
 	 * @param fileName
 	 * @return
@@ -33,21 +34,21 @@ public abstract class ResourceUtil {
 			return getNullImage();
 		}
 	}
-	
+
 	/**
 	 * Get the null image to show something went wrong when loading
 	 */
 	private static BufferedImage getNullImage() {
 		return loadInternalImage("com.arcadeengine.res", "null.png");
 	}
-	
+
 	/**
 	 * Gets an Image from outside the classpath
 	 */
 	public static BufferedImage loadExternalImage(String folder, String fileName) {
 		return loadExternalImage(folder + "/" + fileName);
 	}
-	
+
 	public static BufferedImage loadExternalImage(String path) {
 		try {
 			return ImageIO.read(new File(path));

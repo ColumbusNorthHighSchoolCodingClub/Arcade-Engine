@@ -42,7 +42,7 @@ public abstract class SettingsHandler {
 	 */
 	protected void loadConfig() {
 		config = new Properties(defaults);
-		File gameSettingsDir = new File(System.getenv("APPDATA") + "\\" 	+ projectName + "\\");
+		File gameSettingsDir = new File(System.getenv("APPDATA") + "\\" + projectName + "\\");
 		gameSettingsDir.mkdirs();
 		try {
 			settingsFile = new File(gameSettingsDir, settingsFileName);
@@ -54,8 +54,7 @@ public abstract class SettingsHandler {
 				this.createConfig();
 			}
 		} catch (Exception ex) {
-			System.out.println("Error Loading config: "
-					+ ex.getLocalizedMessage());
+			System.out.println("Error Loading config: " + ex.getLocalizedMessage());
 		}
 	}
 
@@ -67,8 +66,7 @@ public abstract class SettingsHandler {
 			this.config.putAll(this.defaults);
 			this.config.store(new FileWriter(settingsFile), null);
 		} catch (Exception ex) {
-			System.out.println("Error creating config: "
-					+ ex.getLocalizedMessage());
+			System.out.println("Error creating config: " + ex.getLocalizedMessage());
 		}
 	}
 
@@ -82,58 +80,58 @@ public abstract class SettingsHandler {
 			System.out.println("Error saving config: " + e.getLocalizedMessage());
 		}
 	}
-	
+
 	public void setProperty(String propertyName, int value) {
 		config.setProperty(propertyName, String.valueOf(value));
 		saveConfig();
 	}
-	
+
 	public int getIntProperty(String propertyName) {
 		return Integer.parseInt(config.getProperty(propertyName));
 	}
-	
+
 	public void setProperty(String propertyName, float value) {
 		config.setProperty(propertyName, String.valueOf(value));
 		saveConfig();
 	}
-	
+
 	public float getFloatProperty(String propertyName) {
 		return Float.parseFloat(config.getProperty(propertyName));
 	}
-	
+
 	public void setProperty(String propertyName, double value) {
 		config.setProperty(propertyName, String.valueOf(value));
 		saveConfig();
 	}
-	
+
 	public double getDoubleProperty(String propertyName) {
 		return Double.parseDouble(config.getProperty(propertyName));
 	}
-	
+
 	public void setProperty(String propertyName, String value) {
 		config.setProperty(propertyName, value);
 		saveConfig();
 	}
-	
+
 	public String getStringProperty(String propertyName) {
 		return config.getProperty(propertyName);
 	}
-	
+
 	public void setProperty(String propertyName, boolean b) {
 		config.setProperty(propertyName, String.valueOf(b));
-        saveConfig();
+		saveConfig();
 	}
 
 	public boolean getBoolProperty(String propertyName) {
 		return Boolean.parseBoolean(config.getProperty(propertyName));
 	}
-	
+
 	/**
-     * Swaps the state of a boolean option
-     */
-    public void toggleOption(String propertyName){
-        setProperty(propertyName, !this.getBoolProperty(propertyName));
-        saveConfig();
-    }
+	 * Swaps the state of a boolean option
+	 */
+	public void toggleOption(String propertyName) {
+		setProperty(propertyName, !this.getBoolProperty(propertyName));
+		saveConfig();
+	}
 
 }

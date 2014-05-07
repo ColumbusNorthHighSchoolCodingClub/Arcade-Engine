@@ -1,78 +1,60 @@
 package gui;
 
-
 import java.awt.Graphics;
+
+import main.ArcadeDemo;
 
 import com.arcadeengine.AnimPanel;
 import com.arcadeengine.gui.Gui;
 import com.arcadeengine.gui.GuiButton;
 import com.arcadeengine.gui.GuiComponent;
 
-import main.ArcadeDemo;
-
-public class GuiPaused extends Gui
-{
+public class GuiPaused extends Gui {
 	private ArcadeDemo demo = (ArcadeDemo) panel;
-	
-	private GuiButton resume  = new GuiButton(panel, 200, 22, "Resume Game!"),
-					  options = new GuiButton(panel, 200, 22, "Options"),
-					  mainmenu= new GuiButton(panel, 200, 22, "To Main Menu"),
-					  exit    = new GuiButton(panel, 200, 22, "Exit");
-	
-	public GuiPaused(AnimPanel panel)
-	{
+
+	private GuiButton resume = new GuiButton(panel, 200, 22, "Resume Game!"), options = new GuiButton(panel, 200, 22, "Options"), mainmenu = new GuiButton(panel, 200, 22, "To Main Menu"), exit = new GuiButton(panel, 200, 22, "Exit");
+
+	public GuiPaused(AnimPanel panel) {
 		super(panel);
-		
+
 		this.setTitle("* Paused *");
-		
+
 		this.setBGColor(68, 68, 68, 160);
-		
+
 		this.setBGImage(demo.getCurrentBG());
-		
-		this.components = new GuiComponent[]
-		{
-			resume,
-			options,
-			mainmenu,
-			exit
-		};
+
+		this.components = new GuiComponent[] { resume, options, mainmenu, exit };
 	}
-	
+
 	@Override
-	public void drawGui(Graphics g)
-	{
+	public void drawGui(Graphics g) {
 		drawTitle(g, demo.getWidth());
-		
+
 		// Draws the buttons, LAST!
 		drawComponents(g, demo.getWidth() / 2 - 200 / 2, 210);
 	}
-	
+
 	@Override
-	public void updateGui()
-	{
+	public void updateGui() {
 		updateComponents();
 	}
-	
+
 	@Override
-	public boolean updateOnClick(int btn)
-	{
-		if(resume.isHovered()) {
+	public boolean updateOnClick(int btn) {
+		if (resume.isHovered()) {
 			demo.getGuiHandler().previousGui();
 			return true;
-		}
-		else if(options.isHovered()) {
+		} else if (options.isHovered()) {
 			demo.getGuiHandler().switchGui(new GuiOptions(this.panel));
 			return true;
-		}
-		else if(mainmenu.isHovered()){ 
+		} else if (mainmenu.isHovered()) {
 			demo.getGuiHandler().switchGui(new GuiMainMenu(this.panel));
 			return true;
-		}
-		else if(exit.isHovered()) {
+		} else if (exit.isHovered()) {
 			demo.getGuiHandler().switchGui(new GuiQuit(this.panel));
 			return true;
 		}
-		
+
 		return false;
 	}
 }

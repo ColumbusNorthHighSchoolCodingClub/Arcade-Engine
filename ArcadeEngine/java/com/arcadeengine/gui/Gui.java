@@ -10,7 +10,7 @@ import java.awt.geom.Rectangle2D;
 
 import com.arcadeengine.AnimPanel;
 
-public abstract class Gui implements GuiInterface {
+public abstract class Gui {
 	protected AnimPanel panel;
 
 	private Color bgColor = new Color(68, 68, 68, 160);
@@ -291,10 +291,7 @@ public abstract class Gui implements GuiInterface {
 	protected void updateComponents() {
 		this.updateComponents(components);
 	}
-}
-
-interface GuiInterface {
-
+	
 	/**
 	 * Draw the Gui onto the Screen.
 	 * 
@@ -303,7 +300,7 @@ interface GuiInterface {
 	 * @param panel
 	 *            The game. (put "this" here)
 	 */
-	public void drawGui(Graphics g);
+	public abstract void drawGui(Graphics g);
 
 	/**
 	 * Updates for the GUI.
@@ -311,7 +308,7 @@ interface GuiInterface {
 	 * @param panel
 	 *            The game. (put "this" here)
 	 */
-	public void updateGui();
+	public abstract void updateGui();
 
 	/**
 	 * 
@@ -319,5 +316,5 @@ interface GuiInterface {
 	 * @param panel
 	 *            The game. (put "this" here)
 	 */
-	public boolean updateOnClick(int btn);
+	public abstract boolean updateOnClick(int btn);
 }

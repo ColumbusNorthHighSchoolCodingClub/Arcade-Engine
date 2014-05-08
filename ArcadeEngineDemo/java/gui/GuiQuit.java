@@ -8,7 +8,6 @@ import main.ArcadeDemo;
 import com.arcadeengine.AnimPanel;
 import com.arcadeengine.gui.Gui;
 import com.arcadeengine.gui.GuiButton;
-import com.arcadeengine.gui.GuiComponent;
 
 public class GuiQuit extends Gui {
 	private ArcadeDemo demo = (ArcadeDemo) panel;
@@ -25,7 +24,8 @@ public class GuiQuit extends Gui {
 
 		this.setBGImage(demo.getCurrentBG());
 
-		this.components = new GuiComponent[] { quit, back };
+		components.add(quit);
+		components.add(back);
 	}
 
 	@Override
@@ -46,14 +46,17 @@ public class GuiQuit extends Gui {
 	}
 
 	@Override
-	public boolean updateOnClick(int btn) {
-		if (quit.isHovered()) {
+	protected boolean onClick(int mouseBtn) {
+		return false;
+	}
+
+	@Override
+	public void actionPerformed(GuiButton btn) {
+		if (btn.equals(quit)) {
 			System.out.println("*** Closing ***");
 			System.exit(0);
-		} else if (back.isHovered()) {
+		} else if (btn.equals(back)) {
 			demo.getGuiHandler().previousGui();
-			return true;
 		}
-		return false;
 	}
 }

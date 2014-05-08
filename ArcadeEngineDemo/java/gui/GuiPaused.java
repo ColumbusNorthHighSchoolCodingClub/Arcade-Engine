@@ -7,7 +7,6 @@ import main.ArcadeDemo;
 import com.arcadeengine.AnimPanel;
 import com.arcadeengine.gui.Gui;
 import com.arcadeengine.gui.GuiButton;
-import com.arcadeengine.gui.GuiComponent;
 
 public class GuiPaused extends Gui {
 	private ArcadeDemo demo = (ArcadeDemo) panel;
@@ -22,8 +21,11 @@ public class GuiPaused extends Gui {
 		this.setBGColor(68, 68, 68, 160);
 
 		this.setBGImage(demo.getCurrentBG());
-
-		this.components = new GuiComponent[] { resume, options, mainmenu, exit };
+		
+		components.add(resume);
+		components.add(options);
+		components.add(mainmenu);
+		components.add(exit);
 	}
 
 	@Override
@@ -40,21 +42,20 @@ public class GuiPaused extends Gui {
 	}
 
 	@Override
-	public boolean updateOnClick(int btn) {
-		if (resume.isHovered()) {
-			demo.getGuiHandler().previousGui();
-			return true;
-		} else if (options.isHovered()) {
-			demo.getGuiHandler().switchGui(new GuiOptions(this.panel));
-			return true;
-		} else if (mainmenu.isHovered()) {
-			demo.getGuiHandler().switchGui(new GuiMainMenu(this.panel));
-			return true;
-		} else if (exit.isHovered()) {
-			demo.getGuiHandler().switchGui(new GuiQuit(this.panel));
-			return true;
-		}
-
+	protected boolean onClick(int mouseBtn) {
 		return false;
+	}
+
+	@Override
+	public void actionPerformed(GuiButton btn) {
+		if (btn.equals(resume)) {
+			demo.getGuiHandler().previousGui();
+		} else if (btn.equals(options)) {
+			demo.getGuiHandler().switchGui(new GuiOptions(this.panel));
+		} else if (btn.equals(mainmenu)) {
+			demo.getGuiHandler().switchGui(new GuiMainMenu(this.panel));
+		} else if (btn.equals(exit)) {
+			demo.getGuiHandler().switchGui(new GuiQuit(this.panel));
+		}
 	}
 }

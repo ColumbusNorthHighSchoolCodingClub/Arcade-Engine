@@ -11,6 +11,7 @@ import main.ArcadeDemo;
 
 import com.arcadeengine.AnimPanel;
 import com.arcadeengine.gui.Gui;
+import com.arcadeengine.gui.GuiButton;
 
 public class GuiDebug extends Gui {
 	private ArcadeDemo demo = (ArcadeDemo) panel;
@@ -58,9 +59,13 @@ public class GuiDebug extends Gui {
 		// All of the info to be displayed on the screen if debug is on.
 		debug = new String[] { "FPS: " + demo.getFPS(), "Frame Number: " + demo.getFrameNumber(), addBreak, "Mouse X: " + demo.getMousePosition().x, "Mouse Y: " + demo.getMousePosition().y, "Left Click Held: " + demo.isLeftClickHeld(), "Middle Click Held: " + demo.isMiddleClickHeld(), "Right Click Held: " + demo.isRightClickHeld(), "Clicked on GUI Component: " + demo.isComponentClicked(), addBreak, "BG Red: " + demo.getGuiHandler().getBGColor().getRed(), "BG Green: " + demo.getGuiHandler().getBGColor().getGreen(), "BG Blue: " + demo.getGuiHandler().getBGColor().getBlue(), "BG Alpha: " + demo.getGuiHandler().getBGColor().getAlpha(), };
 	}
+	@Override
+	protected boolean onClick(int mouseBtn) {
+		return false;
+	}
 
 	@Override
-	public boolean updateOnClick(int btn) {
-		return false;
+	public void actionPerformed(GuiButton btn) {
+		
 	}
 }

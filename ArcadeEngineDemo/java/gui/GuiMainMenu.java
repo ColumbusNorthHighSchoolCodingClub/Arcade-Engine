@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import main.ArcadeDemo;
 
@@ -22,9 +23,14 @@ public class GuiMainMenu extends Gui {
 
 	private BufferedImage bg = ResourceUtil.loadInternalImage("gui.res", "bg.png");
 
-	private GuiComponent[] utilButtons;
+	private ArrayList<GuiComponent> utilButtons = new ArrayList<GuiComponent>();
 
-	private GuiButton start = new GuiButton(demo, 120, 22, "Start Demo!"), options = new GuiButton(demo, 120, 22, "Options"), arrayTitle1 = new GuiButton(demo, 120, 22, "--Default Array--"), arrayTitle2 = new GuiButton(demo, 120, 22, "--Util Array--"), exit = new GuiButton(demo, 120, 22, "Exit");
+	private GuiButton 
+	start = new GuiButton(demo, 120, 22, "Start Demo!"),
+	options = new GuiButton(demo, 120, 22, "Options"),
+	arrayTitle1 = new GuiButton(demo, 120, 22, "--Default Array--"),
+	arrayTitle2 = new GuiButton(demo, 120, 22, "--Util Array--"),
+	exit = new GuiButton(demo, 120, 22, "Exit");
 
 	private GuiButtonToggle easterEgg = new GuiButtonToggle(demo, 120, 20, "???", "BEES!!!", false);
 
@@ -42,10 +48,15 @@ public class GuiMainMenu extends Gui {
 
 		// Every Gui has a predefined array of GuiComponents, you are welcome to
 		// make more, like below.
-		this.components = new GuiComponent[] { arrayTitle1, start, exit, };
+		components.add(arrayTitle1);
+		components.add(start);
+		components.add(exit);
 
 		// Here we make our own independent array of components
-		this.utilButtons = new GuiComponent[] { arrayTitle2, options, easterEgg };
+		componentArrays.add(utilButtons);
+		utilButtons.add(arrayTitle2);
+		utilButtons.add(options);
+		utilButtons.add(easterEgg);
 	}
 
 	@Override
@@ -118,12 +129,9 @@ public class GuiMainMenu extends Gui {
 			double g = Math.cos(Math.toRadians(System.currentTimeMillis()) / 42) * 255;
 			double b = (r + g) / 2;
 
-			if (r < 0)
-				r = Math.abs(r);
-			if (g < 0)
-				g = Math.abs(g);
-			if (b < 0)
-				b = Math.abs(b);
+			r = Math.abs(r);
+			g = Math.abs(g);
+			b = Math.abs(b);
 
 			temp = new Color((int) r, (int) g, (int) b, 180);
 		}
@@ -138,20 +146,20 @@ public class GuiMainMenu extends Gui {
 	}
 
 	@Override
-	public boolean updateOnClick(int btn) {
-		if (start.isHovered()) {
-			demo.getGuiHandler().switchGui(new GuiInGame(this.panel));
-			return true;
-		} else if (options.isHovered()) {
-			demo.getGuiHandler().switchGui(new GuiOptions(this.panel));
-			return true;
-		} else if (exit.isHovered()) {
-			demo.getGuiHandler().switchGui(new GuiQuit(this.panel));
-			return true;
-		} else if (easterEgg.isHovered()) {
-			easterEgg.invertState();
-			return true;
-		}
+	protected boolean onClick(int mouseBtn) {
 		return false;
+	}
+
+	@Override
+	public void actionPerformed(GuiButton btn) {
+		if (btn.equals(start)) {
+			demo.getGuiHandler().switchGui(new GuiInGame(this.panel));
+		} else if (btn.equals(options)) {
+			demo.getGuiHandler().switchGui(new GuiOptions(this.panel));
+		} else if (btn.equals(exit)) {
+			demo.getGuiHandler().switchGui(new GuiQuit(this.panel));
+		} else if (btn.equals(easterEgg)) {
+			easterEgg.invertState();
+		}
 	}
 }

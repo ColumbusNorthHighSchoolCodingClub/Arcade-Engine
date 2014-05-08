@@ -9,7 +9,6 @@ import com.arcadeengine.AnimPanel;
 import com.arcadeengine.gui.Gui;
 import com.arcadeengine.gui.GuiButton;
 import com.arcadeengine.gui.GuiButtonToggle;
-import com.arcadeengine.gui.GuiComponent;
 
 public class GuiOptions extends Gui {
 	private ArcadeDemo demo = (ArcadeDemo) panel;
@@ -26,7 +25,8 @@ public class GuiOptions extends Gui {
 
 		this.setBGImage(demo.getCurrentBG());
 
-		this.components = new GuiComponent[] { debug, back };
+		components.add(debug);
+		components.add(back);
 	}
 
 	@Override
@@ -50,17 +50,17 @@ public class GuiOptions extends Gui {
 	}
 
 	@Override
-	public boolean updateOnClick(int btn) {
-		if (debug.isHovered()) {
-			((GuiButtonToggle) debug).invertState();
-
-			demo.getGuiHandler().setDebugState(((GuiButtonToggle) debug).getState());
-			return true;
-		} else if (back.isHovered()) {
-			demo.getGuiHandler().previousGui();
-			return true;
-		}
-
+	protected boolean onClick(int mouseBtn) {
 		return false;
+	}
+
+	@Override
+	public void actionPerformed(GuiButton btn) {
+		if (btn.equals(debug)) {
+			((GuiButtonToggle) debug).invertState();
+			demo.getGuiHandler().setDebugState(((GuiButtonToggle) debug).getState());
+		} else if (btn.equals(back)) {
+			demo.getGuiHandler().previousGui();
+		}
 	}
 }

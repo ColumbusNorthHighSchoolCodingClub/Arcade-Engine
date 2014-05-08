@@ -97,7 +97,10 @@ public class GuiInGame extends Gui {
 		// All components left without coordinates will be auto-placed
 		// vertically downwards from the given coordinate in the drawButtons
 		// method.
-		this.components = new GuiComponent[] { colorChanger, imageSwitch, slider, sliderSwitch, };
+		components.add(colorChanger);
+		components.add(imageSwitch);
+		components.add(slider);
+		components.add(sliderSwitch);
 
 	}
 
@@ -119,8 +122,8 @@ public class GuiInGame extends Gui {
 	}
 
 	@Override
-	public boolean updateOnClick(int btn) {
-		switch (btn) {
+	protected boolean onClick(int mouseBtn) {
+		switch (mouseBtn) {
 		case (MouseEvent.BUTTON1):
 			if (colorChanger.isHovered()) {
 				if (bgColor.ordinal() < BgColor.values().length - 1)
@@ -149,25 +152,26 @@ public class GuiInGame extends Gui {
 			}
 			break;
 		}
+		return false;
+	}
 
-		if (imageSwitch.isHovered()) {
+	@Override
+	public void actionPerformed(GuiButton btn) {
+		if (btn.equals(imageSwitch)) {
 			// Need to invert the Button's Local state
 			imageSwitch.invertState();
 
-			if (imageSwitch.getState())
+			if (imageSwitch.getState()) {
 				demo.setCurrentBG(bg1);
-			else
+			} else {
 				demo.setCurrentBG(bg2);
-			return true;
-		} else if (sliderSwitch.isHovered()) {
+			}
+		} else if (btn.equals(sliderSwitch)) {
 			// Need to invert the Button's Local state
 			sliderSwitch.invertState();
 
 			slider.setEnabled(sliderSwitch.getState());
 			demo.setPauseState(!sliderSwitch.getState());
-			return true;
 		}
-
-		return false;
 	}
 }

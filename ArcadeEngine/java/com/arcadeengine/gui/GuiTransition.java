@@ -84,10 +84,13 @@ public class GuiTransition extends Gui {
 		}
 	}
 
-	// UNUSED
 	@Override
-	public boolean updateOnClick(int btn) {
+	protected boolean onClick(int mouseBtn) {
 		return false;
+	}
+
+	@Override
+	public void actionPerformed(GuiButton btn) {		
 	}
 
 }

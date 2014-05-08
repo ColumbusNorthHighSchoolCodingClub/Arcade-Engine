@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 
 import com.arcadeengine.AnimPanel;
 
@@ -15,7 +16,7 @@ public abstract class Gui {
 
 	private Color bgColor = new Color(68, 68, 68, 160);
 
-	protected GuiComponent components[] = {};
+	protected ArrayList<GuiComponent> components = new ArrayList<>();
 
 	/** The title for each GUI screen **/
 	private String title = "Arcade Engine";
@@ -35,9 +36,11 @@ public abstract class Gui {
 	/** The last Gui Visited **/
 	private Gui parent = null;
 
-	public Gui(AnimPanel panel) {
+	protected ArrayList<ArrayList<GuiComponent>> componentArrays;
 
+	public Gui(AnimPanel panel) {
 		this.panel = panel;
+		componentArrays.add(components); // Add the default array
 	}
 
 	/**
@@ -237,7 +240,7 @@ public abstract class Gui {
 	 *            Y pos where to start auto placing(vertical downwards) the
 	 *            buttons.
 	 */
-	protected void drawComponents(Graphics g, GuiComponent[] buttons, int x, int y) {
+	protected void drawComponents(Graphics g, ArrayList<GuiComponent> buttons, int x, int y) {
 		int height = 0;
 		int spacing = 4;
 
@@ -275,7 +278,7 @@ public abstract class Gui {
 	 * @param mouse
 	 *            The Mouse Coordinate
 	 */
-	protected void updateComponents(GuiComponent[] comps) {
+	protected void updateComponents(ArrayList<GuiComponent> comps) {
 		for (GuiComponent b : comps) {
 			b.onUpdateDefault(panel.getMousePosition());
 			b.update();
@@ -316,5 +319,21 @@ public abstract class Gui {
 	 * @param panel
 	 *            The game. (put "this" here)
 	 */
-	public abstract boolean updateOnClick(int btn);
+	public final boolean updateOnClick(int btn) {
+		for (ArrayList<GuiComponent> array : componentArrays) {
+			for (GuiComponent component : components) {
+				if (component instanceof GuiButton) {
+					if (((GuiButton) component).isHovered()) {
+						actionPerformed((GuiButton) component);
+						return true;
+					}
+				}
+			}
+		}
+		return onClick(btn);
+	}
+	
+	protected abstract boolean onClick(int mouseBtn);
+
+	public abstract void actionPerformed(GuiButton btn);
 }

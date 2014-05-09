@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * This class provides utility methods for loading resources
@@ -67,11 +70,13 @@ public abstract class ResourceUtil {
 	 *            Class Being Used in, Example : Player.class
 	 * @return The desired sound file.
 	 */
-	public static AudioClip loadClip(String filename, Class<?> ob) {
+	public static AudioInputStream loadClip(String packageName, String fileName) {
 		try {
-			return Applet.newAudioClip(ob.getResource("res/" + filename));
-		} catch (NullPointerException e) {
-			System.out.println("res/" + filename + " Doesn't Exist!");
+			String pathName = packageName.replaceAll("\\.", "/") + "/" + fileName;
+			URL path = ClassLoader.getSystemClassLoader().getResource(pathName);
+			return AudioSystem.getAudioInputStream(path);
+		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

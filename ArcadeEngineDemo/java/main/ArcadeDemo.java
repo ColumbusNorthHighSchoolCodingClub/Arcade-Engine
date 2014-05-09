@@ -6,8 +6,15 @@ import gui.GuiMainMenu;
 import gui.GuiPaused;
 import gui.OptionsHelper;
 
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 
 import com.arcadeengine.AnimPanel;
 import com.arcadeengine.KeyBinding;
@@ -23,6 +30,8 @@ import com.arcadeengine.gui.GuiHandler;
 @SuppressWarnings("serial")
 public class ArcadeDemo extends AnimPanel {
 	private Image currentBG;
+	
+	private AudioInputStream bgMusic;
 
 	private OptionsHelper optionsHelper = new OptionsHelper();
 
@@ -71,7 +80,20 @@ public class ArcadeDemo extends AnimPanel {
 
 	@Override
 	public void initRes() {
-
+		bgMusic = ResourceUtil.loadClip("main.res", "pokebattle.wav");
+		
+		//Play music
+		Clip clip = null;
+		try {
+			clip = AudioSystem.getClip();
+			clip.open(bgMusic);
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	    clip.start( );
+		
 		currentBG = ResourceUtil.loadInternalImage("main.res", "bg1.png");
 	}
 

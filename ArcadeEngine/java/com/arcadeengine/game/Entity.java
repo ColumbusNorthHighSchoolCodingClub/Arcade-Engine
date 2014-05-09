@@ -11,7 +11,7 @@ import java.util.Random;
 
 import com.arcadeengine.AnimPanel;
 
-public abstract class Entity implements InterfaceEntity {
+public abstract class Entity {
 
 	protected AnimPanel panel;
 
@@ -256,11 +256,8 @@ public abstract class Entity implements InterfaceEntity {
 			g.drawLine(poly.xpoints[coord], poly.ypoints[coord], poly.xpoints[coord2], poly.ypoints[coord2]);
 		}
 	}
-}
 
-interface InterfaceEntity {
+	public abstract void draw(Graphics g);
 
-	public void draw(Graphics g);
-
-	public void think();
+	public abstract void think();
 }

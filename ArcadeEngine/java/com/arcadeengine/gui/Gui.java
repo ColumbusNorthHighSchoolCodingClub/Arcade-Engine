@@ -36,7 +36,7 @@ public abstract class Gui {
 	/** The last Gui Visited **/
 	private Gui parent = null;
 
-	protected ArrayList<ArrayList<GuiComponent>> componentArrays;
+	protected ArrayList<ArrayList<GuiComponent>> componentArrays = new ArrayList<>();
 
 	public Gui(AnimPanel panel) {
 		this.panel = panel;

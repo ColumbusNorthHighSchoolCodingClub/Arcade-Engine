@@ -60,25 +60,10 @@ public abstract class ResourceUtil {
 			return getNullImage();
 		}
 	}
-
-	/**
-	 * Safely attempts to get the requested sound file.
-	 * 
-	 * @param filename
-	 *            Name of the file.
-	 * @param ob
-	 *            Class Being Used in, Example : Player.class
-	 * @return The desired sound file.
-	 */
-	public static AudioInputStream loadClip(String packageName, String fileName) {
-		try {
-			String pathName = packageName.replaceAll("\\.", "/") + "/" + fileName;
-			URL path = ClassLoader.getSystemClassLoader().getResource(pathName);
-			return AudioSystem.getAudioInputStream(path);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+	
+	public static URL getResourceURL(String packageName, String fileName) {
+		String pathName = packageName.replaceAll("\\.", "/") + "/" + fileName;
+ 		return ClassLoader.getSystemClassLoader().getResource(pathName);
+ 	}
 
 }

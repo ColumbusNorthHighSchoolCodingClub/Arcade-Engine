@@ -20,6 +20,7 @@ import com.arcadeengine.AnimPanel;
 import com.arcadeengine.KeyBinding;
 import com.arcadeengine.ResourceUtil;
 import com.arcadeengine.gui.GuiHandler;
+import com.arcadeengine.sound.SoundHandler;
 
 /**
  * Demo showing uses of AnimPanel class.
@@ -80,19 +81,11 @@ public class ArcadeDemo extends AnimPanel {
 
 	@Override
 	public void initRes() {
-		bgMusic = ResourceUtil.loadClip("main.res", "pokebattle.wav");
 		
 		//Play music
-		Clip clip = null;
-		try {
-			clip = AudioSystem.getClip();
-			clip.open(bgMusic);
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	    clip.start( );
+		SoundHandler sHandler = SoundHandler.getInstance();
+		sHandler.addAudioTrack("pokebattle", ResourceUtil.getResourceURL("main.res", "pokebattle.wav"));
+		sHandler.playTrack("pokebattle");
 		
 		currentBG = ResourceUtil.loadInternalImage("main.res", "bg1.png");
 	}

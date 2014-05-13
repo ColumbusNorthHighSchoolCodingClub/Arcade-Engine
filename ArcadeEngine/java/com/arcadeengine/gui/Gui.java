@@ -321,7 +321,7 @@ public abstract class Gui {
 	 */
 	public final boolean updateOnClick(int btn) {
 		for (ArrayList<GuiComponent> array : componentArrays) {
-			for (GuiComponent component : components) {
+			for (GuiComponent component : array) {
 				if (component instanceof GuiButton) {
 					if (((GuiButton) component).isHovered()) {
 						actionPerformed((GuiButton) component);

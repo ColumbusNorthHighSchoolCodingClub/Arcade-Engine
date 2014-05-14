@@ -22,16 +22,24 @@ public class SoundHandler implements ActionListener {
 	}
 
 	private SoundHandler() {
-		Timer t = new Timer(50, this);
+		Timer t = new Timer(25, this);
 		t.start();
 	}
 
+	/**
+	 * This method will be called every 25 milliseconds after the first time SoundHandler is called
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Clip c = currentTrack.getClip();
-		if (c.getMicrosecondLength() <= c.getMicrosecondPosition()) {
-			playing = false;
-			currentTrack.getClip().setMicrosecondPosition(0);
+		if (currentTrack != null) {
+			Clip c = currentTrack.getClip();
+			if (c.getMicrosecondLength() <= c.getMicrosecondPosition()) {
+				playing = false;
+				currentTrack.getClip().setMicrosecondPosition(0);
+				if (repeat) {
+					resume();
+				}
+			}
 		}
 	}	
 
@@ -40,6 +48,7 @@ public class SoundHandler implements ActionListener {
 	private Track currentTrack;
 	private boolean playing = false;
 	private boolean paused = false;
+	private boolean repeat = false;
 
 	public void playTrack(String trackName) {
 		if (!playing) {
@@ -85,6 +94,10 @@ public class SoundHandler implements ActionListener {
 	
 	public boolean isPlaying() {
 		return playing;
+	}
+
+	public void setRepeat(boolean repeat) {
+		this.repeat = repeat;
 	}
 
 }

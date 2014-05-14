@@ -16,7 +16,7 @@ public abstract class Gui {
 
 	private Color bgColor = new Color(68, 68, 68, 160);
 
-	protected ArrayList<GuiComponent> components = new ArrayList<>();
+	protected ArrayList<GuiComponent> components = new ArrayList<GuiComponent>();
 
 	/** The title for each GUI screen **/
 	private String title = "Arcade Engine";
@@ -36,7 +36,7 @@ public abstract class Gui {
 	/** The last Gui Visited **/
 	private Gui parent = null;
 
-	protected ArrayList<ArrayList<GuiComponent>> componentArrays = new ArrayList<>();
+	protected ArrayList<ArrayList<GuiComponent>> componentArrays = new ArrayList<ArrayList<GuiComponent>>();
 
 	public Gui(AnimPanel panel) {
 		this.panel = panel;

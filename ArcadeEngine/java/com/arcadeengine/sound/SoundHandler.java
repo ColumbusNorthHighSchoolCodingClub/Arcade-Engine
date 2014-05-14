@@ -1,13 +1,16 @@
 package com.arcadeengine.sound;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.Timer;
 
-public class SoundHandler {
+public class SoundHandler implements ActionListener {
 
 	private static SoundHandler instance;
 
@@ -19,12 +22,24 @@ public class SoundHandler {
 	}
 
 	private SoundHandler() {
+		Timer t = new Timer(50, this);
+		t.start();
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		Clip c = currentTrack.getClip();
+		if (c.getMicrosecondLength() <= c.getMicrosecondPosition()) {
+			playing = false;
+			currentTrack.getClip().setMicrosecondPosition(0);
+		}
+	}	
 
 	private ArrayList<Track> audioTracks = new ArrayList<Track>();
 
 	private Track currentTrack;
 	private boolean playing = false;
+	private boolean paused = false;
 
 	public void playTrack(String trackName) {
 		if (!playing) {
@@ -40,10 +55,12 @@ public class SoundHandler {
 
 	public void resume() {
 		currentTrack.getClip().start();
+		paused = false;
 	}
 
 	public void pause() {
 		currentTrack.getClip().stop();
+		paused= true;
 	}
 
 	private Track getTrack(String name) {
@@ -64,6 +81,10 @@ public class SoundHandler {
 		} catch (Exception e) {
 		}
 		audioTracks.add(new Track(name, clip));
+	}
+	
+	public boolean isPlaying() {
+		return playing;
 	}
 
 }

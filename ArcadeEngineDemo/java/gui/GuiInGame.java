@@ -14,6 +14,7 @@ import com.arcadeengine.gui.GuiButton;
 import com.arcadeengine.gui.GuiButtonToggle;
 import com.arcadeengine.gui.GuiComponent;
 import com.arcadeengine.gui.GuiSlider;
+import com.arcadeengine.sound.SoundHandler;
 
 public class GuiInGame extends Gui {
 	private ArcadeDemo demo = (ArcadeDemo) panel;
@@ -86,6 +87,8 @@ public class GuiInGame extends Gui {
 	private GuiButtonToggle imageSwitch = new GuiButtonToggle(panel, 150, 22, "Background: 2", "Background: 1", true), sliderSwitch = new GuiButtonToggle(panel, 150, 22, "Slider: Off", "Slider: On", true);
 
 	private GuiSlider slider = new GuiSlider(panel, 150, 42, 54, 1000, true, "Slider");
+	
+	private GuiButtonToggle musicPlayPauseControl = new GuiButtonToggle(demo, 0, 200, 40, 40, "play", "pause", false);
 
 	public GuiInGame(AnimPanel panel) {
 		super(panel);
@@ -101,6 +104,7 @@ public class GuiInGame extends Gui {
 		components.add(imageSwitch);
 		components.add(slider);
 		components.add(sliderSwitch);
+		components.add(musicPlayPauseControl);
 
 	}
 
@@ -172,6 +176,13 @@ public class GuiInGame extends Gui {
 
 			slider.setEnabled(sliderSwitch.getState());
 			demo.setPauseState(!sliderSwitch.getState());
+		} else if (btn.equals(musicPlayPauseControl)) {
+			if (musicPlayPauseControl.getState()) {
+				SoundHandler.getInstance().pause();
+			} else {
+				SoundHandler.getInstance().resume();
+			}
+			musicPlayPauseControl.invertState();
 		}
 	}
 }

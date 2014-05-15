@@ -5,6 +5,7 @@ import gui.GuiInGame;
 import gui.GuiMainMenu;
 import gui.GuiPaused;
 import gui.OptionsHelper;
+import gui.Pausable;
 
 import java.applet.AudioClip;
 import java.awt.Graphics;
@@ -51,7 +52,7 @@ public class ArcadeDemo extends AnimPanel {
 				// Escape
 				else if (key.equals("Escape")) {
 
-					if (gui.getGui() instanceof GuiInGame)
+					if (gui.getGui() instanceof Pausable)
 						gui.switchGui(new GuiPaused(ArcadeDemo.this));
 
 					else if (gui.getGui() instanceof GuiPaused)

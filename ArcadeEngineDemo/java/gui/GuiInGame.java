@@ -1,5 +1,7 @@
 package gui;
 
+import gui.pong.GuiPong;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -16,7 +18,7 @@ import com.arcadeengine.gui.GuiComponent;
 import com.arcadeengine.gui.GuiSlider;
 import com.arcadeengine.sound.SoundHandler;
 
-public class GuiInGame extends Gui {
+public class GuiInGame extends Gui implements Pausable {
 	private ArcadeDemo demo = (ArcadeDemo) panel;
 
 	private Image bg1 = ResourceUtil.loadInternalImage("main.res", "bg1.png");
@@ -88,8 +90,10 @@ public class GuiInGame extends Gui {
 
 	private GuiSlider slider = new GuiSlider(panel, 150, 42, 54, 1000, true, "Slider");
 	
-	private GuiButtonToggle musicPlayPauseControl = new GuiButtonToggle(demo, 0, 200, 40, 40, "play", "pause", false);
+	private GuiButtonToggle musicPlayPauseControl = new GuiButtonToggle(demo, 100, 40, "play music", "pause music", true);
 
+	private GuiButton pongDemo = new GuiButton(demo, 100, 30, "Pong Demo");
+	
 	public GuiInGame(AnimPanel panel) {
 		super(panel);
 
@@ -105,6 +109,7 @@ public class GuiInGame extends Gui {
 		components.add(slider);
 		components.add(sliderSwitch);
 		components.add(musicPlayPauseControl);
+		components.add(pongDemo);
 
 	}
 
@@ -186,6 +191,8 @@ public class GuiInGame extends Gui {
 				SoundHandler.getInstance().resume();
 			}
 			musicPlayPauseControl.invertState();
+		} else if (btn.equals(pongDemo)) {
+			demo.getGuiHandler().switchGui(new GuiPong(demo));
 		}
 	}
 }

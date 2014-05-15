@@ -120,6 +120,9 @@ public class GuiInGame extends Gui {
 	public void updateGui() {
 		if (!getBGColor().equals(this.bgColor.myColor))
 			this.setBGColor(this.bgColor.getColor());
+		
+		if(!SoundHandler.getInstance().isPlaying())
+			musicPlayPauseControl.setState(false);
 
 		// Update the button to see if it is hovered or not.
 		super.updateComponents();

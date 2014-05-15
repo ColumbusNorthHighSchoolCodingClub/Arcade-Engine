@@ -64,11 +64,13 @@ public class SoundHandler implements ActionListener {
 
 	public void resume() {
 		currentTrack.getClip().start();
+		playing = true;
 		paused = false;
 	}
 
 	public void pause() {
 		currentTrack.getClip().stop();
+		playing = false;
 		paused= true;
 	}
 

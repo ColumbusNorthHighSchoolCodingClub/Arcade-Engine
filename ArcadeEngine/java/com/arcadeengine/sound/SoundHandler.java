@@ -101,5 +101,23 @@ public class SoundHandler implements ActionListener {
 	public void setRepeat(boolean repeat) {
 		this.repeat = repeat;
 	}
+	
+	class Track {
+		private final String trackName;
+		private final Clip clip;
+		
+		public Track(String trackName, Clip soundClip) {
+			this.trackName = trackName;
+			this.clip = soundClip;
+		}
+
+		public String getTrackName() {
+			return trackName;
+		}
+
+		public Clip getClip() {
+			return clip;
+		}
+	}
 
 }

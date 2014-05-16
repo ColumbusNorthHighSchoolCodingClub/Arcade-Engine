@@ -29,8 +29,7 @@ public abstract class ResourceUtil {
 	 */
 	public static BufferedImage loadInternalImage(String packageName, String fileName) {
 		try {
-			String pathName = packageName.replaceAll("\\.", "/") + "/" + fileName;
-			URL path = ClassLoader.getSystemClassLoader().getResource(pathName);
+			URL path = getResourceURL(packageName, fileName);
 			return ImageIO.read(path);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -62,8 +61,7 @@ public abstract class ResourceUtil {
 	}
 	
 	public static URL getResourceURL(String packageName, String fileName) {
-		String pathName = packageName.replaceAll("\\.", "/") + "/" + fileName;
- 		return ClassLoader.getSystemClassLoader().getResource(pathName);
+ 		return ClassLoader.getSystemClassLoader().getResource(packageName.replaceAll("\\.", "/") + "/" + fileName);
  	}
 
 }

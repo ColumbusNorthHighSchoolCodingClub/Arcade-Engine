@@ -10,10 +10,22 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.Timer;
 
+/**
+ * SoundHandler is a class that hadles all sound related actions in ArcadeEngine
+ * It is a Singleton - a class that can only have ONE static instance at any time
+ * To get this instance call SoundHandler.getInstance()
+ * @author Byron Zaharako
+ */
 public class SoundHandler implements ActionListener {
 
+	/**
+	 * The static instance of SoundHandler
+	 */
 	private static SoundHandler instance;
 
+	/**
+	 * @return The one instance of SoundHandler
+	 */
 	public static SoundHandler getInstance() {
 		if (instance == null) {
 			instance = new SoundHandler();
@@ -21,6 +33,9 @@ public class SoundHandler implements ActionListener {
 		return instance;
 	}
 
+	/**
+	 * Constructor starts the timer that calls actionPerformed every 25 milliseconds
+	 */
 	private SoundHandler() {
 		Timer t = new Timer(25, this);
 		t.start();
@@ -36,53 +51,83 @@ public class SoundHandler implements ActionListener {
 			if (c.getMicrosecondLength() <= c.getMicrosecondPosition()) {
 				playing = false;
 				currentTrack.getClip().setMicrosecondPosition(0);
-				if (repeat) {
-					resume();
+				if (repeat) { // If the engine wants the track to loop repeat the track
+					play();
 				}
 			}
 		}
 	}	
 
-	private ArrayList<Track> audioTracks = new ArrayList<Track>();
+	/**
+	 * List of all available tracks for the engine to play
+	 */
+	private ArrayList<Track> soundPool = new ArrayList<Track>();
 
+	/**
+	 * Track instance that is currently loaded for play
+	 */
 	private Track currentTrack;
+	
+	/**
+	 * True if a sound is playing
+	 */
 	private boolean playing = false;
-	private boolean paused = false;
+	
+	/**
+	 * True if the track is to repeat continuously
+	 */
 	private boolean repeat = false;
 
-	public void playTrack(String trackName) {
+	/**
+	 * 
+	 * @param trackName The track to load and play
+	 * @throws Exception if the track does not exist in the soundPool
+	 */
+	public void playTrack(String trackName) throws Exception {
 		if (!playing) {
 			currentTrack = getTrack(trackName);
-			currentTrack.getClip().start();
-			playing = true;
+			play();
 		} else {
 			currentTrack.getClip().stop();
 			currentTrack = getTrack(trackName);
-			currentTrack.getClip().start();
+			play();
 		}
 	}
 
-	public void resume() {
+	/**
+	 * Start or resume the audio
+	 */
+	public void play() {
 		currentTrack.getClip().start();
 		playing = true;
-		paused = false;
 	}
 
+	/**
+	 * Halt the audio playback
+	 */
 	public void pause() {
 		currentTrack.getClip().stop();
 		playing = false;
-		paused= true;
 	}
 
-	private Track getTrack(String name) {
-		for (Track t : audioTracks) {
+	/**
+	 * @param name Name of the audio clip to load
+	 * @return audio clip with that name
+	 */
+	private Track getTrack(String name) throws Exception {
+		for (Track t : soundPool) {
 			if (t.getTrackName().equals(name)) {
 				return t;
 			}
 		}
-		return null;
+		throw new Exception("Track: \"" + name + "\" does not exist");
 	}
 
+	/**
+	 * Add an audio track to the sound pool
+	 * @param name name of the track
+	 * @param path path to the audio file
+	 */
 	public void addAudioTrack(String name, URL path) {
 		Clip clip = null;
 		try {
@@ -91,17 +136,27 @@ public class SoundHandler implements ActionListener {
 			clip.open(ais);
 		} catch (Exception e) {
 		}
-		audioTracks.add(new Track(name, clip));
+		soundPool.add(new Track(name, clip));
 	}
 	
+	/**
+	 * @return True if the soundhandler is playing sound
+	 */
 	public boolean isPlaying() {
 		return playing;
 	}
-
+	
+	/**
+	 * Set true to constantly repeat track
+	 */
 	public void setRepeat(boolean repeat) {
 		this.repeat = repeat;
 	}
 	
+	/**
+	 * Wrapper to give audio clips a name
+	 * @author Byron Zaharako
+	 */
 	class Track {
 		private final String trackName;
 		private final Clip clip;

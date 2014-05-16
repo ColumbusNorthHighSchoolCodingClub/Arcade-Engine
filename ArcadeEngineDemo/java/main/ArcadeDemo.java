@@ -86,7 +86,11 @@ public class ArcadeDemo extends AnimPanel {
 		//Play music
 		SoundHandler sHandler = SoundHandler.getInstance();
 		sHandler.addAudioTrack("pokebattle", ResourceUtil.getResourceURL("main.res", "pokebattle.wav"));
-		sHandler.playTrack("pokebattle");
+		try {
+			sHandler.playTrack("pokebattle");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		currentBG = ResourceUtil.loadInternalImage("main.res", "bg1.png");
 	}

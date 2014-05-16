@@ -183,7 +183,7 @@ public class GuiInGame extends Gui implements Pausable {
 			if (musicPlayPauseControl.getState()) {
 				SoundHandler.getInstance().pause();
 			} else {
-				SoundHandler.getInstance().resume();
+				SoundHandler.getInstance().play();
 			}
 			musicPlayPauseControl.invertState();
 		}

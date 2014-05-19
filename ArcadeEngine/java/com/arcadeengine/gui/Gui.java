@@ -325,7 +325,6 @@ public abstract class Gui {
 				if (component instanceof GuiButton) {
 					if (((GuiButton) component).isHovered()) {
 						actionPerformed((GuiButton) component);
-						return true;
 					}
 				}
 			}

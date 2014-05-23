@@ -1,11 +1,13 @@
 package com.arcadeengine;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  * This class provides utility methods for loading resources
@@ -30,6 +32,18 @@ public abstract class ResourceUtil {
 			e.printStackTrace();
 			return getNullImage();
 		}
+	}
+	
+	/**
+	 * Get a GIF from an image within the classpath
+	 * 
+	 * @param packageName
+	 * @param fileName
+	 * @return
+	 */
+	public static Image getAGif(String packageName, String fileName) {
+		URL path = getResourceURL(packageName, fileName);
+		return new ImageIcon(path).getImage();
 	}
 
 	/**

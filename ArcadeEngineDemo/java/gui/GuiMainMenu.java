@@ -19,7 +19,7 @@ import com.arcadeengine.gui.GuiComponent;
 public class GuiMainMenu extends Gui {
 	private ArcadeDemo demo = (ArcadeDemo) panel;
 
-	private Image test = ResourceUtil.loadInternalImage("gui.res", "bees.gif");
+	private Image test = ResourceUtil.getAGif("gui.res", "bees.gif");
 
 	private BufferedImage bg = ResourceUtil.loadInternalImage("gui.res", "bg.png");
 

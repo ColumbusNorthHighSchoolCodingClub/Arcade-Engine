@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import main.ArcadeDemo;
 
 import com.arcadeengine.AnimPanel;
 import com.arcadeengine.ResourceUtil;
+import com.arcadeengine.game.ScrollingBackground;
 import com.arcadeengine.gui.Gui;
 import com.arcadeengine.gui.GuiButton;
 import com.arcadeengine.gui.GuiButtonToggle;
@@ -21,7 +21,7 @@ public class GuiMainMenu extends Gui {
 
 	private Image test = ResourceUtil.getAGif("gui.res", "bees.gif");
 
-	private BufferedImage bg = ResourceUtil.loadInternalImage("gui.res", "bg.png");
+	private ScrollingBackground scbg;
 
 	private ArrayList<GuiComponent> utilButtons = new ArrayList<GuiComponent>();
 
@@ -42,6 +42,8 @@ public class GuiMainMenu extends Gui {
 		this.setTitleColor(Color.GRAY);
 
 		this.setBGImage(demo.getCurrentBG());
+		
+		scbg = new ScrollingBackground(panel, ResourceUtil.loadInternalImage("gui.res", "bg.png"));
 
 		arrayTitle1.setColors(Color.ORANGE, Color.ORANGE.darker().darker().darker());
 		arrayTitle2.setColors(Color.GREEN, Color.GREEN.darker().darker().darker());
@@ -61,7 +63,7 @@ public class GuiMainMenu extends Gui {
 
 	@Override
 	public void drawGui(Graphics g) {
-		drawBackground(g, 1);
+		scbg.drawBackground(g, 1);
 
 		// Draw the title text
 		drawTitle(g, demo.getWidth());
@@ -94,25 +96,6 @@ public class GuiMainMenu extends Gui {
 		drawComponents(g, utilButtons, demo.getWidth() - 140, 210);
 	}
 
-	/**
-	 * Tick is used to keep track of the scrolling of the background
-	 */
-	private int tick = 0;
-
-	/**
-	 * This is an example of a diagonally scrolling background
-	 * 
-	 * @param g
-	 * @param speed
-	 */
-	private void drawBackground(Graphics g, int speed) {
-		for (int i = -1; i < panel.getWidth() / bg.getWidth() + 1; i++) {
-			for (int i2 = -1; i2 < panel.getHeight() / bg.getHeight() + 1; i2++) {
-				g.drawImage(bg, i * bg.getWidth() + ((tick * speed) % bg.getWidth()), i2 * bg.getHeight() + ((tick * speed) % bg.getHeight()), panel);
-			}
-		}
-		tick++;
-	}
 
 	@Override
 	public void updateGui() {
